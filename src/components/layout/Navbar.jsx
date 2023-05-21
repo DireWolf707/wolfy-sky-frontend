@@ -40,7 +40,7 @@ const Navbar = () => {
         }}
       >
         <Link to="/">
-          <Box component="img" src="/assets/logo.svg" width="172px" />
+          <Box component="img" src="/assets/logo.svg" width="160px" />
         </Link>
 
         {isSmall ? (

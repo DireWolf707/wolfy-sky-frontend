@@ -3,12 +3,13 @@ import { useMediaQuery, Stack, Box, Drawer } from "@mui/material"
 import LoginButton from "./button/LoginButton"
 import LogoutButton from "./button/LogoutButton"
 import SidebarLinks from "./navLinks/SidebarLinks"
-import { useDispatch, dataSliceActions, userApi } from "../../store"
+import { useDispatch, useSelector, dataSliceActions, userApi } from "../../store"
 import { publicNavLinks, privateNavLinks } from "../../utils/constants"
 
 const Sidebar = () => {
   const dispatch = useDispatch()
   const isSmall = useMediaQuery((theme) => theme.breakpoints.only("xs"))
+  const { isSidebarOpen } = useSelector((store) => store.data)
 
   const {
     data: { data: user = null },
@@ -24,7 +25,7 @@ const Sidebar = () => {
     <Drawer
       anchor="left"
       variant="temporary"
-      open={true}
+      open={isSidebarOpen}
       onClose={closeSidebar}
       PaperProps={{
         sx: {

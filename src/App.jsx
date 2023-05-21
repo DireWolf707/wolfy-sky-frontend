@@ -5,16 +5,13 @@ import SocketProvider from "./components/wrapper/SocketProvider"
 import { Stack } from "@mui/material"
 import { Routes, Route } from "react-router-dom"
 import { Home, Profile, Error404, Error500 } from "./pages"
-import { useSelector } from "./store"
 
 const App = () => {
-  const { isSidebarOpen } = useSelector((store) => store.data)
-
   return (
     <Stack height="100vh" width="100vw" overflow="auto" bgcolor="#000">
       <Navbar />
 
-      {isSidebarOpen && <Sidebar />}
+      <Sidebar />
 
       <Routes>
         {/* Public Routes */}
