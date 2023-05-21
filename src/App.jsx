@@ -4,7 +4,8 @@ import LoggedInRoute from "./components/wrapper/LoggedInRoute"
 import SocketProvider from "./components/wrapper/SocketProvider"
 import { Stack } from "@mui/material"
 import { Routes, Route } from "react-router-dom"
-import { Home, Profile, Error404, Error500 } from "./pages"
+import { Home, Profile, Feed, PublicProfile, Notifications, Tweet, Error404, Error500 } from "./pages"
+import SidebarsWrapper from "./components/twitter/SidebarsWrapper"
 
 const App = () => {
   return (
@@ -28,7 +29,14 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
 
           {/* Socket Enabled Routes */}
-          <Route element={<SocketProvider />}></Route>
+          <Route element={<SocketProvider />}>
+            <Route element={<SidebarsWrapper />}>
+              <Route path="/feed" element={<Feed />} />
+              <Route path="/public-profile/:userId" element={<PublicProfile />} />
+              <Route path="/notifications" element={<Notifications />} />
+              <Route path="/tweet/:tweetId" element={<Tweet />} />
+            </Route>
+          </Route>
         </Route>
 
         {/* Server Error (500) */}
