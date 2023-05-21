@@ -1,4 +1,5 @@
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
+import CommentIcon from "@mui/icons-material/Comment"
 
 export const navHeight = "96px"
 
@@ -11,9 +12,15 @@ export const publicNavLinks = []
 
 export const privateNavLinks = [
   {
-    title: "profile",
+    title: "feed",
     type: navType.link,
-    href: "/profile",
-    Icon: AccountCircleIcon,
+    href: "/feed",
+    Icon: CommentIcon,
   },
+  // {
+  //   title: "profile",
+  //   type: navType.link,
+  //   href: "/profile",
+  //   Icon: AccountCircleIcon,
+  // },
 ]
