@@ -1,0 +1,25 @@
+import { Stack, Divider } from "@mui/material"
+import TwitterHeader from "./TwitterHeader"
+
+const MyDivider = () => <Divider flexItem sx={{ bgcolor: "#303030" }} />
+
+const TwitterContainer = ({ children, heading }) => {
+  return (
+    <Stack
+      alignSelf="stretch"
+      flexGrow={1}
+      maxWidth="720px"
+      borderLeft="1px solid #303030"
+      borderRight="1px solid #303030"
+      divider={<MyDivider />}
+    >
+      <TwitterHeader heading={heading} />
+
+      <Stack overflow="auto" divider={<MyDivider />}>
+        {children}
+      </Stack>
+    </Stack>
+  )
+}
+
+export default TwitterContainer
