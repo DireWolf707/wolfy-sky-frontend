@@ -3,7 +3,7 @@ import { Box, Stack, Divider } from "@mui/material"
 import { useDispatch, twitterSliceActions } from "../../store"
 import TwitterHeader from "./TwitterHeader"
 
-const MyDivider = () => <Divider flexItem sx={{ bgcolor: "#303030" }} />
+const ContainerDivider = () => <Divider flexItem sx={{ bgcolor: "#303030" }} />
 
 const TwitterContainer = ({ children, heading }) => {
   const containerTopRef = useRef()
@@ -20,11 +20,11 @@ const TwitterContainer = ({ children, heading }) => {
       maxWidth="720px"
       borderLeft="1px solid #303030"
       borderRight="1px solid #303030"
-      divider={<MyDivider />}
+      divider={<ContainerDivider />}
     >
       <TwitterHeader heading={heading} />
 
-      <Stack overflow="auto" divider={<MyDivider />}>
+      <Stack overflow="auto" divider={<ContainerDivider />}>
         <Box ref={containerTopRef} visibility="hidden" />
 
         {children}
