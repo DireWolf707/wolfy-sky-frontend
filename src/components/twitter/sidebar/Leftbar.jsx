@@ -1,5 +1,5 @@
 import { useMediaQuery, Stack, Button, Typography, IconButton } from "@mui/material"
-import { userApi, useSelector } from "../../../store"
+import { userApi, useDispatch, twitterSliceActions } from "../../../store"
 import HomeIcon from "@mui/icons-material/Home"
 import NotificationsIcon from "@mui/icons-material/Notifications"
 import PersonIcon from "@mui/icons-material/Person"
@@ -33,11 +33,11 @@ const LeftbarLink = ({ title, href, Icon, textVisible }) => {
 }
 
 const Leftbar = () => {
-  const { containerTopRef } = useSelector((store) => store.twitter)
+  const dispatch = useDispatch()
   const { data } = userApi.useFetchProfileQuery()
   const textVisible = useMediaQuery((theme) => theme.breakpoints.up("sm"))
 
-  const tweetButtonHandler = () => containerTopRef.scrollIntoView()
+  const tweetButtonHandler = () => dispatch(twitterSliceActions.toggleTweetModal(true))
 
   return (
     <Stack flexShrink={0} alignItems="start" gap={2} sx={{ width: { xs: "auto", sm: "180px" } }}>
