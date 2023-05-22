@@ -4,7 +4,7 @@ import { useDispatch, twitterSliceActions } from "../../store"
 import TwitterHeader from "./TwitterHeader"
 import ContainerDivider from "./divider/ContainerDivider"
 
-const TwitterContainer = ({ children, heading }) => {
+const TwitterContainer = ({ children, heading, refetch }) => {
   const containerTopRef = useRef()
   const dispatch = useDispatch()
 
@@ -21,7 +21,7 @@ const TwitterContainer = ({ children, heading }) => {
       borderRight="1px solid #303030"
       divider={<ContainerDivider />}
     >
-      <TwitterHeader heading={heading} />
+      <TwitterHeader heading={heading} refetch={refetch} />
 
       <Stack overflow="auto" divider={<ContainerDivider />}>
         <Box ref={containerTopRef} visibility="hidden" />

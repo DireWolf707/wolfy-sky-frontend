@@ -1,21 +1,39 @@
 import { Stack, Typography, IconButton } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
+import CachedIcon from "@mui/icons-material/Cached"
+import { motion, useAnimationControls } from "framer-motion"
 
-const TwitterHeader = ({ heading }) => {
+const TwitterHeader = ({ heading, refetch }) => {
   const navigate = useNavigate()
+  const controls = useAnimationControls()
+
+  const refresh = async () => {
+    const numRotation = 40
+    controls.start({ rotate: -360 * numRotation, transition: { duration: numRotation, repeat: Infinity } })
+    // await refetch()
+    await new Promise((resolve) => setTimeout(resolve, 2000))
+    controls.stop()
+    controls.set({ rotate: 0 })
+  }
 
   return (
-    <Stack flexDirection="row" alignItems="center" p="8px">
-      {heading !== "home" && (
-        <IconButton onClick={() => navigate("/feed")}>
-          <ArrowBackIcon fontSize="small" />
-        </IconButton>
-      )}
+    <Stack flexDirection="row" justifyContent="space-between" alignItems="center" p="8px">
+      <Stack flexDirection="row" alignItems="center">
+        {heading !== "home" && (
+          <IconButton onClick={() => navigate("/feed")}>
+            <ArrowBackIcon fontSize="small" />
+          </IconButton>
+        )}
 
-      <Typography fontWeight={900} textTransform="capitalize" fontSize="22px">
-        {heading}
-      </Typography>
+        <Typography fontWeight={900} textTransform="capitalize" fontSize="22px">
+          {heading}
+        </Typography>
+      </Stack>
+
+      <IconButton onClick={refresh}>
+        <CachedIcon component={motion.svg} animate={controls} />
+      </IconButton>
     </Stack>
   )
 }

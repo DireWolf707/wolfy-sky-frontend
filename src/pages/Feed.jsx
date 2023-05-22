@@ -13,7 +13,7 @@ const t = {
 
 const Feed = () => {
   return (
-    <TwitterContainer heading="home">
+    <TwitterContainer heading="home" refetch={() => {}}>
       <TweetInput />
 
       <TweetCard tweet={t} />
