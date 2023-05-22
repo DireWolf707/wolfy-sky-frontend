@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material"
 import { Outlet } from "react-router-dom"
-import Leftbar from "./sidebars/Leftbar"
-import Rightbar from "./sidebars/Rightbar"
+import Leftbar from "./sidebar/Leftbar"
+import Rightbar from "./sidebar/Rightbar"
 
 const TwitterWrapper = () => {
   return (
