@@ -1,26 +1,21 @@
 import { Stack, Typography } from "@mui/material"
-import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import UserAvatar from "../../components/layout/UserAvatar"
 import LikeButton from "./button/LikeButton"
 import CommentButton from "./button/CommentButton"
 
 const TweetCard = ({ tweet }) => {
-  const navigate = useNavigate()
-
   return (
     <Stack flexDirection="row" p="16px 16px 4px 16px" gap={2}>
       <UserAvatar user={{ username: "DW" }} />
 
       <Stack>
         <Stack flexDirection="row" alignItems="center" gap={1}>
-          <Typography
-            onClick={() => navigate(`/public-profile/${tweet.userId}`)}
-            fontWeight={600}
-            fontSize="14px"
-            sx={{ cursor: "pointer" }}
-          >
-            {tweet.name}
-          </Typography>
+          <Link to={`/public-profile/${tweet.userId}`}>
+            <Typography fontWeight={600} fontSize="14px">
+              {tweet.name}
+            </Typography>
+          </Link>
 
           <Typography fontWeight={600} fontSize="13px" color="rgba(150,150,150)">
             @{tweet.username}
