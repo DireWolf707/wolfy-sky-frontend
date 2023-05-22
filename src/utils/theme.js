@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material"
-import { red } from "@mui/material/colors"
+import { red,grey } from "@mui/material/colors"
 
 export const theme = createTheme({
   palette: {
@@ -7,6 +7,12 @@ export const theme = createTheme({
       main: "#fff",
       dark: red[50],
       contrastText: red[400],
+    },
+
+    btn2: {
+      main: "#fff",
+      dark: grey[400],
+      contrastText: "#000",
     },
   },
 })
