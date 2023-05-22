@@ -11,7 +11,7 @@ const filePreviewInitialState = {
   src: null,
 }
 
-const TweetInput = ({ parentTweetId = null }) => {
+const TweetInput = ({ row = 6, parentTweetId = null }) => {
   const tweetRef = useRef(null)
   const fileRef = useRef(null)
   const [filePreview, setFilePreview] = useState(filePreviewInitialState)
@@ -45,7 +45,7 @@ const TweetInput = ({ parentTweetId = null }) => {
       <Stack flexDirection="row" gap={1.5}>
         <UserAvatar user={{ username: "DW" }} />
 
-        <Stack flexGrow={1}>
+        <Stack flexGrow={1} gap={2}>
           <Box
             ref={tweetRef}
             component="textarea"
@@ -53,7 +53,7 @@ const TweetInput = ({ parentTweetId = null }) => {
             fontWeight={500}
             fontSize="18px"
             placeholder={parentTweetId ? "Any reply?" : "What's going on?"}
-            rows={6}
+            rows={row}
             bgcolor="#000"
             mt="8px"
           />
