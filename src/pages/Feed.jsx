@@ -1,49 +1,24 @@
-import { Box, Stack, Typography, Divider, Button } from "@mui/material"
-import UserAvatar from "../components/layout/UserAvatar"
+import TwitterContainer from "../components/twitter/TwitterContainer"
 import TweetCard from "../components/twitter/TweetCard"
+import TweetInput from "../components/twitter/TweetInput"
+
+const t = {
+  id: 123,
+  name: "Direwolf",
+  username: "direwolf",
+  time: "2 hours",
+  content: "This is my first tweet",
+  userId: 1234,
+}
 
 const Feed = () => {
   return (
-    <Stack
-      alignSelf="stretch"
-      flexGrow={1}
-      maxWidth="720px"
-      borderLeft="1px solid #303030"
-      borderRight="1px solid #303030"
-      divider={<Divider flexItem sx={{ bgcolor: "#303030" }} />}
-    >
-      <Typography fontWeight={900} fontSize="22px" p="8px">
-        Home
-      </Typography>
+    <TwitterContainer heading="home">
+      <TweetInput />
 
-      <Stack p="16px" gap={2}>
-        <Stack flexDirection="row" gap={1.5}>
-          <UserAvatar user={{ username: "DW" }} />
-
-          <Box
-            flexGrow={1}
-            component="textarea"
-            fontFamily="Roboto"
-            fontWeight={500}
-            fontSize="15px"
-            placeholder="What's going on?"
-            rows={4}
-            bgcolor="#000"
-            mt="6px"
-          />
-        </Stack>
-
-        <Button variant="contained" sx={{ alignSelf: "end", borderRadius: "24px", bgcolor: "#4072F4" }}>
-          <Typography fontWeight={500} textTransform="capitalize">
-            Tweet
-          </Typography>
-        </Button>
-      </Stack>
-
-      <TweetCard />
-      <TweetCard />
-      <TweetCard />
-    </Stack>
+      <TweetCard tweet={t} />
+      <TweetCard tweet={t} />
+    </TwitterContainer>
   )
 }
 
