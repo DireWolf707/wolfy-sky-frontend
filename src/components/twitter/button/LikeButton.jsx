@@ -2,7 +2,7 @@ import { Stack, Typography, IconButton } from "@mui/material"
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 
-const LikeButton = () => {
+const LikeButton = ({ tweetId }) => {
   return (
     <Stack flexDirection="row" alignItems="center">
       <IconButton>
