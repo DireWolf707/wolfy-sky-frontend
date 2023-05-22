@@ -1,5 +1,6 @@
 import { Stack } from "@mui/material"
 import { Outlet } from "react-router-dom"
+import TweetInputModal from "./modal/TweetInputModal"
 import Leftbar from "./sidebar/Leftbar"
 import Rightbar from "./sidebar/Rightbar"
 
@@ -14,6 +15,8 @@ const TwitterWrapper = () => {
       px="10px"
       sx={{ gap: { xs: 1, sm: 4 } }}
     >
+      <TweetInputModal />
+
       <Leftbar />
 
       <Outlet />
