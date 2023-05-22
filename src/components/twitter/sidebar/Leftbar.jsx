@@ -40,7 +40,7 @@ const Leftbar = () => {
   const tweetButtonHandler = () => containerTopRef.scrollIntoView()
 
   return (
-    <Stack alignItems="start" gap={2} sx={{ width: { xs: "auto", sm: "180px" } }}>
+    <Stack flexShrink={0} alignItems="start" gap={2} sx={{ width: { xs: "auto", sm: "180px" } }}>
       <LeftbarLink title="home" href="/feed" Icon={HomeIcon} textVisible={textVisible} />
       <LeftbarLink title="notifications" href="/notifications" Icon={NotificationsIcon} textVisible={textVisible} />
       <LeftbarLink title="profile" href={`public-profile/${data.data.id}`} Icon={PersonIcon} textVisible={textVisible} />
