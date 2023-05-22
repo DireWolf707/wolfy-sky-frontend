@@ -41,11 +41,13 @@ textarea {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(124, 124, 124);
+  /* background: rgb(124, 124, 124); */
+  background: #4072F4;
   border-radius: 12px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(77, 77, 77);
+  /* background: rgb(77, 77, 77); */
+  background: #49B0F9;
 }
