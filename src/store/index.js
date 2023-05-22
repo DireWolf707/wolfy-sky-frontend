@@ -6,12 +6,14 @@ import { persistStore, persistReducer } from "redux-persist"
 import storage from "redux-persist/lib/storage"
 // RTK slices
 import { dataSlice, dataSliceActions } from "./slices/dataSlice"
+import { twitterSlice, twitterSliceActions } from "./slices/twitterSlice"
 // RTK api
 import userApi from "./apis/userApi"
 
 const rootReducer = combineReducers({
   // slices
   [dataSlice.name]: dataSlice.reducer,
+  [twitterSlice.name]: twitterSlice.reducer,
   // apis
   [userApi.reducerPath]: userApi.reducer,
 })
@@ -35,5 +37,5 @@ setupListeners(store.dispatch)
 export const persistor = persistStore(store)
 
 export { useSelector, useDispatch } from "react-redux"
-export { dataSliceActions }
+export { dataSliceActions, twitterSliceActions }
 export { userApi }
