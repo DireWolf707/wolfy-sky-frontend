@@ -9,6 +9,56 @@ export default createApi({
   }),
 
   endpoints(builder) {
-    return {}
+    return {
+      getFeed: builder.query({
+        query: () => ({
+          url: "/feed",
+          method: "GET",
+        }),
+      }),
+
+      getNotifications: builder.query({
+        query: () => ({
+          url: "/notifications",
+          method: "GET",
+        }),
+      }),
+
+      getPublicProfile: builder.query({
+        query: ({ userId }) => ({
+          url: `/public-profile/${userId}`,
+          method: "GET",
+        }),
+      }),
+
+      getTweet: builder.query({
+        query: ({ tweetId }) => ({
+          url: `/tweet/${tweetId}`,
+          method: "GET",
+        }),
+      }),
+
+      tweet: builder.mutation({
+        query: ({ body }) => ({
+          url: "/tweet",
+          method: "POST",
+          body,
+        }),
+      }),
+
+      like: builder.mutation({
+        query: ({ tweetId }) => ({
+          url: `/tweet/${tweetId}/like`,
+          method: "POST",
+        }),
+      }),
+
+      unlike: builder.mutation({
+        query: ({ tweetId }) => ({
+          url: `/tweet/${tweetId}/like`,
+          method: "DELETE",
+        }),
+      }),
+    }
   },
 })
