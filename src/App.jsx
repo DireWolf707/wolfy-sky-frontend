@@ -5,7 +5,7 @@ import SocketProvider from "./components/wrapper/SocketProvider"
 import { Stack } from "@mui/material"
 import { Routes, Route } from "react-router-dom"
 import { Home, Profile, Feed, PublicProfile, Notifications, Tweet, Error404, Error500 } from "./pages"
-import SidebarsWrapper from "./components/twitter/SidebarsWrapper"
+import TwitterWrapper from "./components/twitter/TwitterWrapper"
 
 const App = () => {
   return (
@@ -30,7 +30,7 @@ const App = () => {
 
           {/* Socket Enabled Routes */}
           <Route element={<SocketProvider />}>
-            <Route element={<SidebarsWrapper />}>
+            <Route element={<TwitterWrapper />}>
               <Route path="/feed" element={<Feed />} />
               <Route path="/public-profile/:userId" element={<PublicProfile />} />
               <Route path="/notifications" element={<Notifications />} />
