@@ -1,5 +1,6 @@
-import { Box, Stack, Typography } from "@mui/material"
+import { Stack, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
+import UserAvatar from "../layout/UserAvatar"
 
 const TweetLink = ({ href }) => (
   <Link to={`/tweet/${href}`} style={{ textDecoration: "underline", textUnderlineOffset: "4px", textDecorationColor: "#4072F4" }}>
@@ -34,7 +35,7 @@ const NotificationContent = ({ notification }) => {
 const TweetNotification = ({ notification }) => {
   return (
     <Stack flexDirection="row" alignItems="center" p="18px" gap={1.5}>
-      <Box component="img" src="/assets/favicon.svg" width="44px" />
+      <UserAvatar user={{ username: "DW" }} />
 
       <Typography fontWeight={500} fontSize="16px">
         <Link
