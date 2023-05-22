@@ -5,11 +5,16 @@ export const twitterSlice = createSlice({
 
   initialState: {
     containerTopRef: null,
+    isTweetModalOpen: false
   },
 
   reducers: {
     setContainerTopRef(state, action) {
       state.containerTopRef = action.payload
+    },
+
+    toggleTweetModal(state, action) {
+      state.isTweetModalOpen = action.payload
     },
   },
 })
