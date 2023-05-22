@@ -25,7 +25,7 @@ const TweetInputModal = () => {
           <CloseIcon />
         </IconButton>
 
-        <TweetInput row={8} />
+        <TweetInput />
       </Stack>
     </Modal>
   )
