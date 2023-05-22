@@ -1,9 +1,8 @@
 import { useRef, useEffect } from "react"
-import { Box, Stack, Divider } from "@mui/material"
+import { Box, Stack } from "@mui/material"
 import { useDispatch, twitterSliceActions } from "../../store"
 import TwitterHeader from "./TwitterHeader"
-
-const ContainerDivider = () => <Divider flexItem sx={{ bgcolor: "#303030" }} />
+import ContainerDivider from "./divider/ContainerDivider"
 
 const TwitterContainer = ({ children, heading }) => {
   const containerTopRef = useRef()
