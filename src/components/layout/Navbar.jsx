@@ -17,7 +17,7 @@ const Navbar = () => {
   } = userApi.useFetchProfileQuery()
 
   useEffect(() => {
-    dispatch(dataSliceActions.setTopRef(topRef))
+    dispatch(dataSliceActions.setTopRef(topRef.current))
   }, [])
 
   return (

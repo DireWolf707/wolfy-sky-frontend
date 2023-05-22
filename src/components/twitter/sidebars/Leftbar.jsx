@@ -9,12 +9,12 @@ import { useNavigate } from "react-router-dom"
 const LeftbarLink = ({ title, href, Icon, textVisible }) => {
   const navigate = useNavigate()
 
-  const clickHandler = () => navigate(href)
+  const onClickHandler = () => navigate(href)
 
   return (
     <>
       {textVisible ? (
-        <Button onClick={clickHandler}>
+        <Button onClick={onClickHandler}>
           <Stack flexDirection="row" alignItems="center" gap={1.2}>
             <Icon fontSize="large" />
 
@@ -24,7 +24,7 @@ const LeftbarLink = ({ title, href, Icon, textVisible }) => {
           </Stack>
         </Button>
       ) : (
-        <IconButton onClick={clickHandler}>
+        <IconButton onClick={onClickHandler}>
           <Icon />
         </IconButton>
       )}
