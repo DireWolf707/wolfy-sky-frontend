@@ -18,9 +18,9 @@ const TwitterHeader = ({ heading, refetch }) => {
   }
 
   return (
-    <Stack flexDirection="row" justifyContent="space-between" alignItems="center" p="8px">
+    <Stack flexDirection="row" justifyContent="space-between" alignItems="center" px="16px" py="8px">
       <Stack flexDirection="row" alignItems="center">
-        {heading !== "home" && (
+        {heading === "tweet" && (
           <IconButton onClick={() => navigate("/feed")}>
             <ArrowBackIcon fontSize="small" />
           </IconButton>
