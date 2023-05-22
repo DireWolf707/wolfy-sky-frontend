@@ -30,8 +30,8 @@ textarea {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 9px;
-  height: 9px;
+  width: 6px;
+  height: 6px;
 }
 
 /* Track */
