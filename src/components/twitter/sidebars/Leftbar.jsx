@@ -1,5 +1,5 @@
 import { useMediaQuery, Stack, Button, Typography, IconButton } from "@mui/material"
-import { userApi } from "../../../store"
+import { userApi, useSelector } from "../../../store"
 import HomeIcon from "@mui/icons-material/Home"
 import NotificationsIcon from "@mui/icons-material/Notifications"
 import PersonIcon from "@mui/icons-material/Person"
@@ -9,10 +9,12 @@ import { useNavigate } from "react-router-dom"
 const LeftbarLink = ({ title, href, Icon, textVisible }) => {
   const navigate = useNavigate()
 
+  const clickHandler = () => navigate(href)
+
   return (
     <>
       {textVisible ? (
-        <Button onClick={() => navigate(href)}>
+        <Button onClick={clickHandler}>
           <Stack flexDirection="row" alignItems="center" gap={1.2}>
             <Icon fontSize="large" />
 
@@ -22,7 +24,7 @@ const LeftbarLink = ({ title, href, Icon, textVisible }) => {
           </Stack>
         </Button>
       ) : (
-        <IconButton onClick={() => navigate(href)}>
+        <IconButton onClick={clickHandler}>
           <Icon />
         </IconButton>
       )}
@@ -31,8 +33,11 @@ const LeftbarLink = ({ title, href, Icon, textVisible }) => {
 }
 
 const Leftbar = () => {
+  const { containerTopRef } = useSelector((store) => store.twitter)
   const { data } = userApi.useFetchProfileQuery()
   const textVisible = useMediaQuery((theme) => theme.breakpoints.up("sm"))
+
+  const tweetButtonHandler = () => containerTopRef.scrollIntoView()
 
   return (
     <Stack alignItems="start" gap={2} sx={{ width: { xs: "auto", sm: "180px" } }}>
@@ -41,13 +46,13 @@ const Leftbar = () => {
       <LeftbarLink title="profile" href={`public-profile/${data.data.id}`} Icon={PersonIcon} textVisible={textVisible} />
 
       {textVisible ? (
-        <Button fullWidth variant="contained" sx={{ borderRadius: "24px", bgcolor: "#4072F4" }}>
+        <Button onClick={tweetButtonHandler} fullWidth variant="contained" sx={{ borderRadius: "24px", bgcolor: "#4072F4" }}>
           <Typography fontWeight={500} textTransform="capitalize">
             Tweet
           </Typography>
         </Button>
       ) : (
-        <IconButton sx={{ bgcolor: "#4072F4", ":hover": { bgcolor: "#4072F4" } }}>
+        <IconButton onClick={tweetButtonHandler} sx={{ bgcolor: "#4072F4", ":hover": { bgcolor: "#4072F4" } }}>
           <HistoryEduIcon />
         </IconButton>
       )}
