@@ -38,7 +38,7 @@ const t = {
 const PublicProfile = () => {
   return (
     <TwitterContainer heading="profile">
-      <Box flexShrink={0} bgcolor="rgba(150,150,150)" height="160px" />
+      <Box flexShrink={0} bgcolor="rgba(150,150,150)" height="140px" />
 
       <Stack p="12px">
         <Stack flexDirection="row" justifyContent="space-between" alignItems="start">
