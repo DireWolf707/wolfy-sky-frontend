@@ -1,10 +1,13 @@
 import { useMediaQuery, Stack, Button, Typography, IconButton } from "@mui/material"
+import { useNavigate, useLocation } from "react-router-dom"
 import { userApi, useDispatch, twitterSliceActions } from "../../../store"
 import HomeIcon from "@mui/icons-material/Home"
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
 import NotificationsIcon from "@mui/icons-material/Notifications"
+import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined"
 import PersonIcon from "@mui/icons-material/Person"
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline"
 import HistoryEduIcon from "@mui/icons-material/HistoryEdu"
-import { useNavigate } from "react-router-dom"
 
 const LeftbarLink = ({ title, href, Icon, textVisible }) => {
   const navigate = useNavigate()
@@ -34,6 +37,7 @@ const LeftbarLink = ({ title, href, Icon, textVisible }) => {
 
 const Leftbar = () => {
   const dispatch = useDispatch()
+  const { pathname } = useLocation()
   const { data } = userApi.useFetchProfileQuery()
   const textVisible = useMediaQuery((theme) => theme.breakpoints.up("sm"))
 
@@ -41,9 +45,19 @@ const Leftbar = () => {
 
   return (
     <Stack flexShrink={0} alignItems="start" gap={2} sx={{ width: { xs: "auto", sm: "180px" } }}>
-      <LeftbarLink title="home" href="/feed" Icon={HomeIcon} textVisible={textVisible} />
-      <LeftbarLink title="notifications" href="/notifications" Icon={NotificationsIcon} textVisible={textVisible} />
-      <LeftbarLink title="profile" href={`public-profile/${data.data.id}`} Icon={PersonIcon} textVisible={textVisible} />
+      <LeftbarLink title="home" href="/feed" Icon={pathname === "/feed" ? HomeIcon : HomeOutlinedIcon} textVisible={textVisible} />
+      <LeftbarLink
+        title="notifications"
+        href="/notifications"
+        Icon={pathname === "/notifications" ? NotificationsIcon : NotificationsOutlinedIcon}
+        textVisible={textVisible}
+      />
+      <LeftbarLink
+        title="profile"
+        href={`public-profile/${data.data.id}`}
+        Icon={pathname.startsWith("/public-profile") ? PersonIcon : PersonOutlineIcon}
+        textVisible={textVisible}
+      />
 
       {textVisible ? (
         <Button onClick={tweetButtonHandler} fullWidth variant="contained" sx={{ borderRadius: "24px", bgcolor: "#4072F4" }}>
