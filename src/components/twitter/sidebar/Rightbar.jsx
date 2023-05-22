@@ -3,7 +3,7 @@ import UserAvatar from "../../layout/UserAvatar"
 
 const Rightbar = () => {
   return (
-    <Stack flexShrink={0} width="240px" bgcolor="rgba(255,255,255,0.15)" borderRadius="6px" p="16px" gap={2} sx={{ display: { xs: "none", md: "flex" } }}>
+    <Stack flexShrink={0} width="240px" bgcolor="rgba(255,255,255,0.15)" borderRadius="6px" p="16px" gap={2} sx={{ display: { xs: "none", lg: "flex" } }}>
       <Typography fontWeight={600} fontSize="21px">
         Who to follow
       </Typography>
