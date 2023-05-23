@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { Box, Stack } from "@mui/material"
 import SearchIcon from "@mui/icons-material/Search"
 
-const SearchButton = () => {
+const SearchButton = ({ defaultValue = "" }) => {
   const navigate = useNavigate()
   const searchRef = useRef(null)
 
@@ -14,7 +14,6 @@ const SearchButton = () => {
 
     const params = new URLSearchParams({ q: query })
     navigate(`/search?${params.toString()}`)
-    searchRef.current.value = ""
   }
 
   return (
@@ -33,6 +32,7 @@ const SearchButton = () => {
 
       <Box
         ref={searchRef}
+        defaultValue={defaultValue}
         component="input"
         flexGrow={1}
         placeholder="Search..."
