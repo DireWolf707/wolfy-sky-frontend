@@ -1,30 +1,12 @@
-import { Box,Stack, Typography, Button } from "@mui/material"
+import { useParams } from "react-router-dom"
+import { Box, Stack, Typography } from "@mui/material"
 import TwitterContainer from "../components/twitter/TwitterContainer"
-import TweetCard from "../components/twitter/TweetCard"
+import TweetCard from "../components/twitter/card/TweetCard"
+import ProfileEditButton from "../components/twitter/button/ProfileEditButton"
+import FollowButton from "../components/twitter/button/FollowButton"
 import UserAvatar from "../components/layout/UserAvatar"
-import { useNavigate, useParams } from "react-router-dom"
-import { userApi } from "../store"
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
-
-const ProfileButton = () => {
-  const navgate = useNavigate()
-  const { userId } = useParams()
-  const { data } = userApi.useFetchProfileQuery()
-  const sx = { borderRadius: "24px", textTransform: "capitalize" }
-
-  if (data.data.id === userId)
-    return (
-      <Button onClick={() => navgate("/profile")} variant="contained" color="btn2" sx={sx}>
-        edit
-      </Button>
-    )
-
-  return (
-    <Button variant="contained" color="btn2" sx={sx}>
-      follow
-    </Button>
-  )
-}
+import { userApi } from "../store"
 
 const t = {
   id: 123,
@@ -36,6 +18,9 @@ const t = {
 }
 
 const PublicProfile = () => {
+  const { userId } = useParams()
+  const { data } = userApi.useFetchProfileQuery()
+
   return (
     <TwitterContainer heading="profile">
       <Box flexShrink={0} bgcolor="rgba(150,150,150)" height="140px" />
@@ -46,7 +31,7 @@ const PublicProfile = () => {
             <UserAvatar user={{ username: "DW" }} size="150px" fontSize="60px" />
           </Stack>
 
-          <ProfileButton />
+          {data.data.id === userId ? <ProfileEditButton /> : <FollowButton />}
         </Stack>
 
         <Stack p="12px" gap={2}>
