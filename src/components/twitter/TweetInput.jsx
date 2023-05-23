@@ -59,15 +59,17 @@ const TweetInput = ({ row = 6, parentTweetId = null }) => {
           />
 
           {/* File Preview */}
-          <Stack position="relative" display={!filePreview.show && "none"}>
-            <IconButton onClick={handleUnsetFilePreview} sx={{ position: "absolute", m: "1px", zIndex: "1" }}>
-              <CancelIcon sx={{ fill: "rgba(0,0,0,0.8)", bgcolor: "#fff", borderRadius: "100%", fontSize: { xs: "24px", md: "36px" } }} />
-            </IconButton>
+          {filePreview.show && (
+            <Stack position="relative">
+              <IconButton onClick={handleUnsetFilePreview} sx={{ position: "absolute", m: "1px", zIndex: "1" }}>
+                <CancelIcon sx={{ fill: "rgba(0,0,0,0.8)", bgcolor: "#fff", borderRadius: "100%", fontSize: { xs: "24px", md: "36px" } }} />
+              </IconButton>
 
-            {filePreview.type === "img" && <Box component="img" src={filePreview.src} width="100%" borderRadius="24px" />}
+              {filePreview.type === "img" && <Box component="img" src={filePreview.src} width="100%" borderRadius="24px" />}
 
-            {filePreview.type === "video" && <Box component="video" src={filePreview.src} controls width="100%" borderRadius="24px" />}
-          </Stack>
+              {filePreview.type === "video" && <Box component="video" src={filePreview.src} controls width="100%" borderRadius="24px" />}
+            </Stack>
+          )}
         </Stack>
       </Stack>
 
