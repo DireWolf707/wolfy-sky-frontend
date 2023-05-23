@@ -17,7 +17,7 @@ const TweetInputModal = () => {
       justifyContent="center"
       alignItems="center"
       overflow="auto"
-      bgcolor="rgba(255,255,255,0.3)"
+      slotProps={{ backdrop: { timeout: 400, sx: { bgcolor: "rgba(255,255,255,0.25)" } } }}
       p="28px"
     >
       <Stack bgcolor="#000" borderRadius="16px" sx={{ width: { xs: "100%", md: "640px" } }}>
