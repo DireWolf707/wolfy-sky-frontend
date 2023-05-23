@@ -1,8 +1,8 @@
 import { useRef, useEffect } from "react"
 import { Box, Stack } from "@mui/material"
 import { useDispatch, twitterSliceActions } from "../../store"
-import TwitterHeader from "./TwitterHeader"
-import ContainerDivider from "./divider/ContainerDivider"
+import ContainerHeader from "./container/ContainerHeader"
+import ContainerDivider from "./container/ContainerDivider"
 
 const TwitterContainer = ({ children, heading, refetch }) => {
   const containerTopRef = useRef()
@@ -21,7 +21,7 @@ const TwitterContainer = ({ children, heading, refetch }) => {
       borderRight="1px solid #303030"
       divider={<ContainerDivider />}
     >
-      <TwitterHeader heading={heading} refetch={refetch} />
+      <ContainerHeader heading={heading} refetch={refetch} />
 
       <Stack overflow="auto" divider={<ContainerDivider />}>
         <Box ref={containerTopRef} visibility="hidden" />

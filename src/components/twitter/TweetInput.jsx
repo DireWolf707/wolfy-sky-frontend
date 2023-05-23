@@ -1,7 +1,7 @@
 import { useState, useRef } from "react"
 import { Box, Stack, Typography, Button, IconButton } from "@mui/material"
 import UserAvatar from "../layout/UserAvatar"
-import ContainerDivider from "./divider/ContainerDivider"
+import ContainerDivider from "./container/ContainerDivider"
 import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined"
 import CancelIcon from "@mui/icons-material/Cancel"
 
