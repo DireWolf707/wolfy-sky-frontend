@@ -32,7 +32,7 @@ const NotificationContent = ({ notification }) => {
   }
 }
 
-const TweetNotification = ({ notification }) => {
+const NotificationCard = ({ notification }) => {
   return (
     <Stack flexDirection="row" alignItems="center" p="18px" gap={1.5}>
       <UserAvatar user={{ username: "DW" }} />
@@ -43,11 +43,12 @@ const TweetNotification = ({ notification }) => {
           style={{ textDecoration: "underline", textUnderlineOffset: "4px", textDecorationColor: "#4072F4" }}
         >
           {notification.name}
-        </Link>{" "}
+        </Link>
+
         <NotificationContent notification={notification} />
       </Typography>
     </Stack>
   )
 }
 
-export default TweetNotification
+export default NotificationCard
