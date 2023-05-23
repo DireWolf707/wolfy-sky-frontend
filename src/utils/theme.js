@@ -14,5 +14,15 @@ export const theme = createTheme({
       dark: grey[400],
       contrastText: "#000",
     },
+
+    btn3: {
+      main: "#000",
+      contrastText: red[500],
+    },
+
+    btn4: {
+      main: "#000",
+      contrastText: "fff",
+    },
   },
 })
