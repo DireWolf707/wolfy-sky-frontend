@@ -1,8 +1,8 @@
 import { Stack, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
-import UserAvatar from "../../components/layout/UserAvatar"
-import LikeButton from "./button/LikeButton"
-import CommentButton from "./button/CommentButton"
+import UserAvatar from "../../../components/layout/UserAvatar"
+import LikeButton from "../button/LikeButton"
+import CommentButton from "../button/CommentButton"
 
 const TweetCard = ({ tweet }) => {
   return (

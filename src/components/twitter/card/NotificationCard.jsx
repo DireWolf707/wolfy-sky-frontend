@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
-import UserAvatar from "../layout/UserAvatar"
+import UserAvatar from "../../layout/UserAvatar"
 
 const TweetLink = ({ href }) => (
   <Link to={`/tweet/${href}`} style={{ textDecoration: "underline", textUnderlineOffset: "4px", textDecorationColor: "#4072F4" }}>
