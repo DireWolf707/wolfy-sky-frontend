@@ -44,7 +44,7 @@ const NotificationCard = ({ notification }) => {
         >
           {notification.name}
         </Link>
-
+        &nbsp;
         <NotificationContent notification={notification} />
       </Typography>
     </Stack>
