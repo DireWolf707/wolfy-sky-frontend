@@ -16,24 +16,23 @@ const LeftbarLink = ({ title, href, Icon, textVisible }) => {
 
   const onClickHandler = () => navigate(href)
 
-  return (
-    <>
-      {textVisible ? (
-        <Button onClick={onClickHandler}>
-          <Stack flexDirection="row" alignItems="center" gap={1.2}>
-            <Icon fontSize="large" />
+  if (textVisible)
+    return (
+      <Button onClick={onClickHandler}>
+        <Stack flexDirection="row" alignItems="center" gap={1.2}>
+          <Icon fontSize="large" />
 
-            <Typography fontWeight={500} textTransform="capitalize">
-              {title}
-            </Typography>
-          </Stack>
-        </Button>
-      ) : (
-        <IconButton onClick={onClickHandler}>
-          <Icon />
-        </IconButton>
-      )}
-    </>
+          <Typography fontWeight={500} textTransform="capitalize">
+            {title}
+          </Typography>
+        </Stack>
+      </Button>
+    )
+
+  return (
+    <IconButton onClick={onClickHandler}>
+      <Icon />
+    </IconButton>
   )
 }
 
@@ -61,12 +60,14 @@ const Leftbar = () => {
         Icon={pathname.startsWith("/public-profile") ? PersonIcon : PersonOutlineIcon}
         textVisible={textVisible}
       />
-      {searchEnabled && <LeftbarLink
-        title="search"
-        href="/search"
-        Icon={pathname.startsWith("/search") ? SavedSearchIcon : SearchIcon}
-        textVisible={textVisible}
-      />}
+      {searchEnabled && (
+        <LeftbarLink
+          title="search"
+          href="/search"
+          Icon={pathname.startsWith("/search") ? SavedSearchIcon : SearchIcon}
+          textVisible={textVisible}
+        />
+      )}
 
       {textVisible ? (
         <Button onClick={tweetButtonHandler} fullWidth variant="contained" sx={{ borderRadius: "24px", bgcolor: "#4072F4" }}>

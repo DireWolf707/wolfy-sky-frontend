@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom"
 import { Stack, Typography } from "@mui/material"
 import UserAvatar from "../../layout/UserAvatar"
 import SearchButton from "../button/SearchButton"
+
 const Rightbar = () => {
   const { pathname } = useLocation()
 
