@@ -1,3 +1,4 @@
+import { useRef } from "react"
 import { Stack, Typography, IconButton } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
@@ -7,12 +8,15 @@ import { motion, useAnimationControls } from "framer-motion"
 const TwitterHeader = ({ heading, refetch }) => {
   const navigate = useNavigate()
   const controls = useAnimationControls()
+  const refreshRef = useRef(null)
 
   const refresh = async () => {
     const numRotation = 40
     controls.start({ rotate: -360 * numRotation, transition: { duration: numRotation, repeat: Infinity } })
     // await refetch()
     await new Promise((resolve) => setTimeout(resolve, 2000))
+    if (!refreshRef.current) return
+
     controls.stop()
     controls.set({ rotate: 0 })
   }
@@ -31,7 +35,7 @@ const TwitterHeader = ({ heading, refetch }) => {
         </Typography>
       </Stack>
 
-      <IconButton onClick={refresh}>
+      <IconButton ref={refreshRef} onClick={refresh}>
         <CachedIcon component={motion.svg} animate={controls} />
       </IconButton>
     </Stack>
