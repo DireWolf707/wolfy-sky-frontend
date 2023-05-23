@@ -61,7 +61,7 @@ const TweetInput = ({ row = 6, parentTweetId = null }) => {
           {/* File Preview */}
           {filePreview.show && (
             <Stack position="relative">
-              <IconButton onClick={handleUnsetFilePreview} sx={{ position: "absolute", m: "1px", zIndex: "1" }}>
+              <IconButton onClick={handleUnsetFilePreview} sx={{ position: "absolute", m: "1px", zIndex: 1 }}>
                 <CancelIcon sx={{ fill: "rgba(0,0,0,0.8)", bgcolor: "#fff", borderRadius: "100%", fontSize: { xs: "24px", md: "36px" } }} />
               </IconButton>
 
