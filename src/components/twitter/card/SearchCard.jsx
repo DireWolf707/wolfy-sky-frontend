@@ -11,12 +11,12 @@ const SearchCard = ({ user }) => {
 
         <Stack>
           <Link to={`/public-profile/${user.userId}`}>
-            <Typography fontWeight={600} fontSize="16px">
+            <Typography fontWeight={600} fontSize="15px">
               {user.name}
             </Typography>
           </Link>
 
-          <Typography fontWeight={600} fontSize="14px" color="rgba(150,150,150)">
+          <Typography fontWeight={600} fontSize="13px" color="rgba(150,150,150)">
             @{user.username}
           </Typography>
         </Stack>
