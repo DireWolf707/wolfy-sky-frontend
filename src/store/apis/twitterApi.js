@@ -38,6 +38,13 @@ export default createApi({
         }),
       }),
 
+      search: builder.query({
+        query: ({ params }) => ({
+          url: `/search?${params}`,
+          method: "GET",
+        }),
+      }),
+
       tweet: builder.mutation({
         query: ({ body }) => ({
           url: "/tweet",

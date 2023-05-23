@@ -8,6 +8,8 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import PersonIcon from "@mui/icons-material/Person"
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline"
 import HistoryEduIcon from "@mui/icons-material/HistoryEdu"
+import SearchIcon from "@mui/icons-material/Search"
+import SavedSearchIcon from "@mui/icons-material/SavedSearch"
 
 const LeftbarLink = ({ title, href, Icon, textVisible }) => {
   const navigate = useNavigate()
@@ -40,6 +42,7 @@ const Leftbar = () => {
   const { pathname } = useLocation()
   const { data } = userApi.useFetchProfileQuery()
   const textVisible = useMediaQuery((theme) => theme.breakpoints.up("sm"))
+  const searchEnabled = useMediaQuery((theme) => theme.breakpoints.down("lg"))
 
   const tweetButtonHandler = () => dispatch(twitterSliceActions.toggleTweetModal(true))
 
@@ -54,10 +57,16 @@ const Leftbar = () => {
       />
       <LeftbarLink
         title="profile"
-        href={`public-profile/${data.data.id}`}
+        href={`/public-profile/${data.data.id}`}
         Icon={pathname.startsWith("/public-profile") ? PersonIcon : PersonOutlineIcon}
         textVisible={textVisible}
       />
+      {searchEnabled && <LeftbarLink
+        title="search"
+        href="/search"
+        Icon={pathname.startsWith("/search") ? SavedSearchIcon : SearchIcon}
+        textVisible={textVisible}
+      />}
 
       {textVisible ? (
         <Button onClick={tweetButtonHandler} fullWidth variant="contained" sx={{ borderRadius: "24px", bgcolor: "#4072F4" }}>

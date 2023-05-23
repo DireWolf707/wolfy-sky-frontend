@@ -4,7 +4,7 @@ import LoggedInRoute from "./components/wrapper/LoggedInRoute"
 import SocketProvider from "./components/wrapper/SocketProvider"
 import { Stack } from "@mui/material"
 import { Routes, Route } from "react-router-dom"
-import { Home, Profile, Feed, PublicProfile, Notifications, Tweet, Error404, Error500 } from "./pages"
+import { Home, Profile, Feed, PublicProfile, Notifications, Tweet, Search, Error404, Error500 } from "./pages"
 import TwitterWrapper from "./components/twitter/TwitterWrapper"
 
 const App = () => {
@@ -32,8 +32,9 @@ const App = () => {
           <Route element={<SocketProvider />}>
             <Route element={<TwitterWrapper />}>
               <Route path="/feed" element={<Feed />} />
-              <Route path="/public-profile/:userId" element={<PublicProfile />} />
+              <Route path="/search" element={<Search />} />
               <Route path="/notifications" element={<Notifications />} />
+              <Route path="/public-profile/:userId" element={<PublicProfile />} />
               <Route path="/tweet/:tweetId" element={<Tweet />} />
             </Route>
           </Route>
