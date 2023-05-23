@@ -1,5 +1,5 @@
 import TwitterContainer from "../components/twitter/TwitterContainer"
-import TweetNotification from "../components/twitter/TweetNotification"
+import NotificationCard from "../components/twitter/card/NotificationCard"
 
 const n = {
   name: "dw",
@@ -11,9 +11,9 @@ const n = {
 const Notifications = () => {
   return (
     <TwitterContainer heading="notifications">
-      <TweetNotification notification={n} />
-      <TweetNotification notification={n} />
-      <TweetNotification notification={n} />
+      <NotificationCard notification={n} />
+      <NotificationCard notification={n} />
+      <NotificationCard notification={n} />
     </TwitterContainer>
   )
 }

@@ -1,6 +1,6 @@
 import { useParams } from "react-router"
 import TwitterContainer from "../components/twitter/TwitterContainer"
-import TweetCard from "../components/twitter/TweetCard"
+import TweetCard from "../components/twitter/card/TweetCard"
 import TweetInput from "../components/twitter/TweetInput"
 
 const t = {
