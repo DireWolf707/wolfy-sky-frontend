@@ -5,7 +5,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import CachedIcon from "@mui/icons-material/Cached"
 import { motion, useAnimationControls } from "framer-motion"
 
-const TwitterHeader = ({ heading, refetch }) => {
+const ContainerHeader = ({ heading, refetch }) => {
   const navigate = useNavigate()
   const controls = useAnimationControls()
   const refreshRef = useRef(null)
@@ -42,4 +42,4 @@ const TwitterHeader = ({ heading, refetch }) => {
   )
 }
 
-export default TwitterHeader
+export default ContainerHeader
