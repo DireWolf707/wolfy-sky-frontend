@@ -11,14 +11,16 @@ const ContainerHeader = ({ heading, refetch }) => {
   const refreshRef = useRef(null)
 
   const refresh = async () => {
-    const numRotation = 40
-    controls.start({ rotate: -360 * numRotation, transition: { duration: numRotation, repeat: Infinity } })
-    // await refetch()
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-    if (!refreshRef.current) return
-
-    controls.stop()
-    controls.set({ rotate: 0 })
+    try {
+      const numRotation = 40
+      controls.start({ rotate: -360 * numRotation, transition: { duration: numRotation, repeat: Infinity } })
+      await refetch()
+    } catch (err) {
+    } finally {
+      if (!refreshRef.current) return
+      controls.stop()
+      controls.set({ rotate: 0 })
+    }
   }
 
   return (
