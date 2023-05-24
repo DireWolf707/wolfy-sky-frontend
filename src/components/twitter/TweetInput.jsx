@@ -1,20 +1,17 @@
 import { useState, useRef } from "react"
 import { Box, Stack, Typography, Button, IconButton } from "@mui/material"
+import { twitterApi } from "../../store"
 import UserAvatar from "../layout/UserAvatar"
 import ContainerDivider from "./container/ContainerDivider"
 import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined"
 import CancelIcon from "@mui/icons-material/Cancel"
+import requestHandler from "../../utils/requestHandler"
 
-const filePreviewInitialState = {
-  show: false,
-  type: null,
-  src: null,
-}
-
-const TweetInput = ({ row = 6, parentTweetId = null }) => {
+const TweetInput = ({ row = 6, parentTweetId = null, filePreviewInitialState = { show: false, type: null, src: null } }) => {
   const tweetRef = useRef(null)
   const fileRef = useRef(null)
   const [filePreview, setFilePreview] = useState(filePreviewInitialState)
+  const [createTweet, { isLoading }] = twitterApi.useCreateTweetMutation()
 
   const handleSetFilePreview = (e) => {
     const [file] = e.target.files
@@ -34,10 +31,13 @@ const TweetInput = ({ row = 6, parentTweetId = null }) => {
     setFilePreview(filePreviewInitialState)
   }
 
-  const handleTweet = () => {
-    console.log(parentTweetId)
-    console.log(tweetRef.current.value)
+  const handleCreateTweet = () => {
     console.log(fileRef.current.files)
+    const body = {
+      parentTweetId,
+      content: tweetRef.current.value,
+    }
+    requestHandler(createTweet({ body }).unwrap(), "creating tweet", "tweet created")
   }
 
   return (
@@ -86,7 +86,12 @@ const TweetInput = ({ row = 6, parentTweetId = null }) => {
           <InsertPhotoOutlinedIcon sx={{ fill: "#4072F4" }} />
         </IconButton>
 
-        <Button onClick={handleTweet} variant="contained" sx={{ alignSelf: "end", borderRadius: "24px", bgcolor: "#4072F4" }}>
+        <Button
+          onClick={handleCreateTweet}
+          disabled={isLoading}
+          variant="contained"
+          sx={{ alignSelf: "end", borderRadius: "24px", bgcolor: "#4072F4" }}
+        >
           <Typography fontWeight={500} textTransform="capitalize">
             {parentTweetId ? "Reply" : "Tweet"}
           </Typography>
