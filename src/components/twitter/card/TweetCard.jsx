@@ -4,21 +4,21 @@ import UserAvatar from "../../../components/layout/UserAvatar"
 import LikeButton from "../button/LikeButton"
 import CommentButton from "../button/CommentButton"
 
-const TweetCard = ({ tweet, user }) => {
+const TweetCard = ({ tweet }) => {
   return (
     <Stack flexDirection="row" p="16px 16px 4px 16px" gap={2}>
-      <UserAvatar user={user} />
+      <UserAvatar user={tweet.user} />
 
       <Stack>
         <Stack flexDirection="row" alignItems="center" gap={1}>
           <Link to={`/public-profile/${tweet.userId}`}>
             <Typography fontWeight={600} fontSize="14px">
-              {user.name}
+              {tweet.user.name}
             </Typography>
           </Link>
 
           <Typography fontWeight={600} fontSize="13px" color="rgba(150,150,150)">
-            @{user.username}
+            @{tweet.user.username}
           </Typography>
 
           <Typography fontWeight={600} fontSize="13px" color="rgba(150,150,150)">

@@ -75,7 +75,7 @@ const PublicProfile = () => {
         {isFetching || isError ? (
           <>loading</>
         ) : (
-          data.data.tweets.map((tweet) => <TweetCard key={tweet.id} tweet={tweet} user={data.data.user} />)
+          data.data.tweets.map((tweet) => <TweetCard key={tweet.id} tweet={{ ...tweet, user: data.data.user }} />)
         )}
       </>
     </TwitterContainer>
