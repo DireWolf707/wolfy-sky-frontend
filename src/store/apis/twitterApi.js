@@ -26,7 +26,7 @@ export default createApi({
 
       getPublicProfile: builder.query({
         query: ({ userId }) => ({
-          url: `/public-profile/${userId}`,
+          url: `/profile/${userId}`,
           method: "GET",
         }),
       }),
@@ -38,6 +38,13 @@ export default createApi({
         }),
       }),
 
+      getFollowRecomendations: builder.query({
+        query: () => ({
+          url: "/recomendations",
+          method: "GET",
+        }),
+      }),
+
       search: builder.query({
         query: ({ params }) => ({
           url: `/search?${params}`,
@@ -45,9 +52,17 @@ export default createApi({
         }),
       }),
 
-      tweet: builder.mutation({
+      createTweet: builder.mutation({
         query: ({ body }) => ({
           url: "/tweet",
+          method: "POST",
+          body,
+        }),
+      }),
+
+      replyTweet: builder.mutation({
+        query: ({ body, tweetId }) => ({
+          url: `/tweet/${tweetId}/reply`,
           method: "POST",
           body,
         }),
@@ -63,6 +78,20 @@ export default createApi({
       unlike: builder.mutation({
         query: ({ tweetId }) => ({
           url: `/tweet/${tweetId}/like`,
+          method: "DELETE",
+        }),
+      }),
+
+      follow: builder.mutation({
+        query: ({ userId }) => ({
+          url: `/profile/${userId}/follow`,
+          method: "POST",
+        }),
+      }),
+
+      unfollow: builder.mutation({
+        query: ({ userId }) => ({
+          url: `/profile/${userId}/follow`,
           method: "DELETE",
         }),
       }),
