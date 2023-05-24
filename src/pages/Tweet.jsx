@@ -1,28 +1,20 @@
 import { useParams } from "react-router"
+import { twitterApi } from "../store"
 import TwitterContainer from "../components/twitter/TwitterContainer"
 import TweetCard from "../components/twitter/card/TweetCard"
 import TweetInput from "../components/twitter/TweetInput"
 
-const t = {
-  id: 123,
-  name: "Direwolf",
-  username: "direwolf",
-  time: "2 hours",
-  content: "This is my first tweet",
-  userId: 1234
-}
-
 const Tweet = () => {
   const { tweetId } = useParams()
+  const { data, isFetching, isError, refetch } = twitterApi.useGetTweetQuery({ tweetId })
 
   return (
-    <TwitterContainer heading="tweet">
-      <TweetCard tweet={t} />
+    <TwitterContainer heading="tweet" refetch={refetch}>
+      <>{isFetching || isError ? <>loading</> : <TweetCard tweet={data.data} />}</>
 
       <TweetInput parentTweetId={tweetId} />
 
-      <TweetCard tweet={t} />
-      <TweetCard tweet={t} />
+      <>{isFetching || isError ? <>loading</> : data.data.comments.map((comment) => <TweetCard key={comment.id} tweet={comment} />)}</>
     </TwitterContainer>
   )
 }
