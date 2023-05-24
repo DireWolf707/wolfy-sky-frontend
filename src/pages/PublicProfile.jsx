@@ -25,7 +25,7 @@ const PublicProfile = () => {
             <UserAvatar user={user} size="150px" fontSize="60px" />
           </Stack>
 
-          {user.id === userId ? <ProfileEditButton /> : <FollowButton />}
+          {user.id === userId ? <ProfileEditButton /> : <FollowButton userId={data.data.user.id} isFollowed={data.data.isFollowed} />}
         </Stack>
 
         <Stack p="12px" gap={2}>
@@ -75,7 +75,9 @@ const PublicProfile = () => {
         {isFetching || isError ? (
           <>loading</>
         ) : (
-          data.data.tweets.map((tweet) => <TweetCard key={tweet.id} tweet={{ ...tweet, user: data.data.user }} />)
+          data.data.tweets.map((tweet) => (
+            <TweetCard key={tweet.id} tweet={{ ...tweet, createdAt: tweet.created_at, user: data.data.user }} />
+          ))
         )}
       </>
     </TwitterContainer>
