@@ -35,14 +35,14 @@ const NotificationContent = ({ notification }) => {
 const NotificationCard = ({ notification }) => {
   return (
     <Stack flexDirection="row" alignItems="center" p="18px" gap={1.5}>
-      <UserAvatar user={{ username: "DW" }} />
+      <UserAvatar user={notification.user} />
 
       <Typography fontWeight={500} fontSize="16px">
         <Link
-          to={`/public-profile/${notification.userId}`}
+          to={`/public-profile/${notification.user.userId}`}
           style={{ textDecoration: "underline", textUnderlineOffset: "4px", textDecorationColor: "#4072F4" }}
         >
-          {notification.name}
+          {notification.user.name}
         </Link>
         &nbsp;
         <NotificationContent notification={notification} />

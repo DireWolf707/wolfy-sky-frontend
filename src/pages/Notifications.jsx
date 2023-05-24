@@ -1,19 +1,19 @@
+import { twitterApi } from "../store"
 import TwitterContainer from "../components/twitter/TwitterContainer"
 import NotificationCard from "../components/twitter/card/NotificationCard"
 
-const n = {
-  name: "dw",
-  userId: "1234",
-  action: "replied", // LikeButton,replied,follow
-  tweetId: "123", // ?
-}
-
 const Notifications = () => {
+  const { data, isFetching, isError, refetch } = twitterApi.useGetFeedQuery()
+
   return (
-    <TwitterContainer heading="notifications">
-      <NotificationCard notification={n} />
-      <NotificationCard notification={n} />
-      <NotificationCard notification={n} />
+    <TwitterContainer heading="notifications" refetch={refetch}>
+      <>
+        {isFetching || isError ? (
+          <>loading</>
+        ) : (
+          data.data.map((notification) => <NotificationCard key={notification.id} notification={notification} />)
+        )}
+      </>
     </TwitterContainer>
   )
 }
