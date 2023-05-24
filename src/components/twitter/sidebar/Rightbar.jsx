@@ -1,10 +1,12 @@
 import { useLocation } from "react-router-dom"
+import { twitterApi } from "../../../store"
 import { Stack, Typography } from "@mui/material"
-import UserAvatar from "../../layout/UserAvatar"
+import FollowRecomendationCard from "../card/FollowRecomendationCard"
 import SearchButton from "../button/SearchButton"
 
 const Rightbar = () => {
   const { pathname } = useLocation()
+  const { data, isFetching, isError } = twitterApi.useGetFollowRecomendationsQuery()
 
   return (
     <Stack flexShrink={0} width="250px" gap={2} sx={{ display: { xs: "none", lg: "flex" } }}>
@@ -15,19 +17,9 @@ const Rightbar = () => {
           Who to follow
         </Typography>
 
-        <Stack flexDirection="row" alignItems="center" gap={2}>
-          <UserAvatar user={{ username: "DW" }} />
+        <FollowRecomendationCard user={{ name: "Direwolf", username: "direwolf707", userId: "11abdbb8-0a5d-492e-b757-e6e0844a9474" }} />
 
-          <Stack>
-            <Typography fontWeight={600} fontSize="14px">
-              Direwolf
-            </Typography>
-
-            <Typography fontWeight={600} fontSize="13px" color="rgba(150,150,150)">
-              @direwolf
-            </Typography>
-          </Stack>
-        </Stack>
+        <>{isFetching || isError ? <>loading</> : data.data.map((recomendation) => <FollowRecomendationCard user={recomendation} />)}</>
       </Stack>
     </Stack>
   )
