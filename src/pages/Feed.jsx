@@ -1,23 +1,16 @@
+import { twitterApi } from "../store"
 import TwitterContainer from "../components/twitter/TwitterContainer"
 import TweetCard from "../components/twitter/card/TweetCard"
 import TweetInput from "../components/twitter/TweetInput"
 
-const t = {
-  id: 123,
-  name: "Direwolf",
-  username: "direwolf",
-  time: "2 hours",
-  content: "This is my first tweet",
-  userId: 1234,
-}
-
 const Feed = () => {
+  const { data, isFetching, isError, refetch } = twitterApi.useGetFeedQuery()
+
   return (
-    <TwitterContainer heading="home" refetch={() => {}}>
+    <TwitterContainer heading="home" refetch={refetch}>
       <TweetInput />
 
-      <TweetCard tweet={t} />
-      <TweetCard tweet={t} />
+      <>{isFetching || isError ? <>loading</> : data.data.map((tweet) => <TweetCard key={tweet.id} tweet={tweet} />)}</>
     </TwitterContainer>
   )
 }
