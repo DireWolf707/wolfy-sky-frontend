@@ -3,7 +3,7 @@ import { Stack, Typography } from "@mui/material"
 import UserAvatar from "../../../components/layout/UserAvatar"
 import FollowButton from "../button/FollowButton"
 
-const SearchCard = ({ user }) => {
+const SearchCard = ({ user, isFollowed }) => {
   return (
     <Stack flexDirection="row" justifyContent="space-between" alignItems="center" p="16px">
       <Stack flexDirection="row" alignItems="center" gap={2}>
@@ -22,7 +22,7 @@ const SearchCard = ({ user }) => {
         </Stack>
       </Stack>
 
-      <FollowButton />
+      <FollowButton isFollowed={isFollowed} userId={user.id} />
     </Stack>
   )
 }

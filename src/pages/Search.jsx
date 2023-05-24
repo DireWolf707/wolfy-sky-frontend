@@ -1,29 +1,32 @@
 import { Stack } from "@mui/material"
 import { useSearchParams } from "react-router-dom"
+import { twitterApi } from "../store"
 import TwitterContainer from "../components/twitter/TwitterContainer"
 import SearchButton from "../components/twitter/button/SearchButton"
 import SearchCard from "../components/twitter/card/SearchCard"
 
-const u = {
-  id: 123,
-  name: "Direwolf",
-  username: "direwolf",
-  userId: 1234,
-}
-
 const Search = () => {
   const [searchParams] = useSearchParams()
-  // console.log(searchParams.toString())
+  const q = searchParams.get("q")
+  const { data, isFetching, isError, refetch } = twitterApi.useSearchQuery({ params: searchParams.toString() }, { skip: !q })
 
   return (
-    <TwitterContainer heading="search">
+    <TwitterContainer heading="search" refetch={refetch}>
       <Stack p="12px">
-        <SearchButton defaultValue={searchParams.get("q")} />
+        <SearchButton defaultValue={q} />
       </Stack>
 
-      <SearchCard user={u} />
-      <SearchCard user={u} />
-      <SearchCard user={u} />
+      {!q ? (
+        <>Search something...</>
+      ) : isFetching || isError ? (
+        <>loading...</>
+      ) : (
+        <>
+          {data.data.map(({ user, Follow }) => (
+            <SearchCard key={user.id} user={user} isFollowed={Boolean(Follow)} />
+          ))}
+        </>
+      )}
     </TwitterContainer>
   )
 }
