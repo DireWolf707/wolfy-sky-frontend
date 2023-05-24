@@ -39,7 +39,7 @@ const NotificationCard = ({ notification }) => {
 
       <Typography fontWeight={500} fontSize="16px">
         <Link
-          to={`/public-profile/${notification.user.userId}`}
+          to={`/public-profile/${notification.userId}`}
           style={{ textDecoration: "underline", textUnderlineOffset: "4px", textDecorationColor: "#4072F4" }}
         >
           {notification.user.name}
