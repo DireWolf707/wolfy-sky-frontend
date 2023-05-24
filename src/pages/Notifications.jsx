@@ -3,7 +3,7 @@ import TwitterContainer from "../components/twitter/TwitterContainer"
 import NotificationCard from "../components/twitter/card/NotificationCard"
 
 const Notifications = () => {
-  const { data, isFetching, isError, refetch } = twitterApi.useGetFeedQuery()
+  const { data, isFetching, isError, refetch } = twitterApi.useGetNotificationsQuery()
 
   return (
     <TwitterContainer heading="notifications" refetch={refetch}>
