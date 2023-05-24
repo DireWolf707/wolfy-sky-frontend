@@ -5,6 +5,7 @@ import LikeButton from "../button/LikeButton"
 import CommentButton from "../button/CommentButton"
 
 const TweetCard = ({ tweet }) => {
+
   return (
     <Stack flexDirection="row" p="16px 16px 4px 16px" gap={2}>
       <UserAvatar user={tweet.user} />
@@ -22,7 +23,7 @@ const TweetCard = ({ tweet }) => {
           </Typography>
 
           <Typography fontWeight={600} fontSize="13px" color="rgba(150,150,150)">
-            {new Date(tweet.created_at).toDateString()}
+            {new Date(tweet.createdAt).toDateString()}
           </Typography>
         </Stack>
 
