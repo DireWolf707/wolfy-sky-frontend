@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Typography, Avatar } from "@mui/material"
 import randomString from "../../utils/randomString"
 
-const UserAvatar = ({ user, size = "40px", fontSize = "26px", cache = true }) => {
+const UserAvatar = ({ user, size = "40px", fontSize = "26px", cache = false }) => {
   const [src, setSrc] = useState(cache ? user.avatar : user.avatar + "?dummy=" + randomString(5))
 
   return (
