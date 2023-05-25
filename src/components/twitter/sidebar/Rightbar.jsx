@@ -17,9 +17,13 @@ const Rightbar = () => {
           Who to follow
         </Typography>
 
-        <FollowRecomendationCard user={{ name: "Direwolf", username: "direwolf707", userId: "11abdbb8-0a5d-492e-b757-e6e0844a9474" }} />
-
-        {isFetching ? <>loading</> : data?.data?.map((recomendation) => <FollowRecomendationCard user={recomendation} />)}
+        {isFetching ? (
+          <>loading</>
+        ) : data?.data?.length ? (
+          data?.data?.map((recomendation) => <FollowRecomendationCard user={recomendation} />)
+        ) : (
+          <FollowRecomendationCard user={{ name: "Direwolf", username: "direwolf707", userId: "11abdbb8-0a5d-492e-b757-e6e0844a9474" }} />
+        )}
       </Stack>
     </Stack>
   )
