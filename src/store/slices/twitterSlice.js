@@ -7,7 +7,6 @@ export const twitterSlice = createSlice({
     containerTopRef: null,
     isTweetModalOpen: false,
     parentTweetList: [],
-    feed: null,
   },
 
   reducers: {
@@ -29,20 +28,6 @@ export const twitterSlice = createSlice({
 
     resetParentTweetList(state, action) {
       state.parentTweetList = []
-    },
-
-    setFeed(state, action) {
-      if (state.feed) state.feed.push(...action.payload)
-      else state.feed = action.payload
-    },
-
-    updateFeed(state, action) {
-      if (state.feed) state.feed.unshift(action.payload)
-      else state.feed = [action.payload]
-    },
-
-    unsetFeed(state, action) {
-      state.feed = null
     },
   },
 })

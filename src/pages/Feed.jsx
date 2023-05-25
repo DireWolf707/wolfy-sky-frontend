@@ -1,5 +1,5 @@
-import { useEffect, useCallback } from "react"
-import { useDispatch, useSelector, twitterApi, twitterSliceActions } from "../store"
+import { useState, useEffect, useCallback } from "react"
+import { twitterApi } from "../store"
 import TwitterContainer from "../components/twitter/TwitterContainer"
 import TweetCard from "../components/twitter/card/TweetCard"
 import TweetInput from "../components/twitter/TweetInput"
@@ -8,25 +8,19 @@ import CircularLoader from "../components/loading/component/CircularLoader"
 import EmptyCard from "../components/twitter/card/EmptyCard"
 
 const Feed = () => {
-  const dispatch = useDispatch()
-  const { feed } = useSelector((store) => store.twitter)
+  const [feed, setFeed] = useState(null)
   const [getFeed] = twitterApi.useLazyGetFeedQuery()
 
   const refetch = useCallback(async () => {
-    dispatch(twitterSliceActions.unsetFeed())
-
-    await requestHandler(getFeed().unwrap(), "fetching feed", "feed fetched").then(({ data }) =>
-      dispatch(twitterSliceActions.setFeed(data))
-    )
+    setFeed(null)
+    await requestHandler(getFeed().unwrap(), "fetching feed", "feed fetched").then(({ data }) => setFeed(data))
   }, [])
 
   useEffect(() => {
-    requestHandler(getFeed().unwrap(), "fetching feed", "feed fetched").then(({ data }) => dispatch(twitterSliceActions.setFeed(data)))
-
-    return () => dispatch(twitterSliceActions.unsetFeed())
+    refetch()
   }, [])
 
-  const onComplete = ({ data }) => dispatch(twitterSliceActions.updateFeed(data))
+  const onComplete = ({ data }) => setFeed((pv) => [data, ...pv])
 
   return (
     <TwitterContainer heading="home" refetch={refetch}>
