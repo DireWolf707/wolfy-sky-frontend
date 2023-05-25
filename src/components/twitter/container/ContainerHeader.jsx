@@ -1,12 +1,15 @@
 import { useRef } from "react"
 import { Stack, Typography, IconButton } from "@mui/material"
 import { useNavigate } from "react-router-dom"
+import { useDispatch, useSelector, twitterSliceActions } from "../../../store"
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import CachedIcon from "@mui/icons-material/Cached"
 import { motion, useAnimationControls } from "framer-motion"
 
 const ContainerHeader = ({ heading, refetch }) => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { parentTweetList } = useSelector((store) => store.twitter)
   const controls = useAnimationControls()
   const refreshRef = useRef(null)
 
@@ -23,11 +26,19 @@ const ContainerHeader = ({ heading, refetch }) => {
     }
   }
 
+  const onClickHandler = () => {
+    const tweetId = parentTweetList.at(-1)
+    if (tweetId) navigate(`/tweet/${tweetId}`)
+    else navigate("/feed")
+
+    dispatch(twitterSliceActions.popParentTweet())
+  }
+
   return (
     <Stack flexDirection="row" justifyContent="space-between" alignItems="center" px="16px" py="8px">
       <Stack flexDirection="row" alignItems="center">
         {heading === "tweet" && (
-          <IconButton onClick={() => navigate("/feed")}>
+          <IconButton onClick={onClickHandler}>
             <ArrowBackIcon fontSize="small" />
           </IconButton>
         )}
