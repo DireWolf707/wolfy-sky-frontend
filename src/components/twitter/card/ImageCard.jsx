@@ -1,7 +1,11 @@
-import { Box } from "@mui/material"
+import { Box, Stack } from "@mui/material"
 
 const ImageCard = ({ src }) => {
-  return <Box component="img" src={src} maxHeight="320px" width="100%" borderRadius="24px" sx={{ objectFit: "contain" }} />
+  return (
+    <Stack justifyContent="center" alignItems="center">
+      <Box component="img" src={src} maxHeight="320px" maxWidth="100%" borderRadius="24px" sx={{ objectFit: "contain" }} />
+    </Stack>
+  )
 }
 
 export default ImageCard
