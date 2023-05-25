@@ -14,8 +14,8 @@ const ParentChildTweetCard = ({ parentTweet, tweet }) => {
     >
       <TimelineItem>
         <TimelineSeparator>
-          <Link to={`/public-profile/${tweet.userId}`}>
-            <UserAvatar user={tweet.user} />
+          <Link to={`/public-profile/${parentTweet.userId}`}>
+            <UserAvatar user={parentTweet.user} />
           </Link>
           <TimelineConnector />
         </TimelineSeparator>
