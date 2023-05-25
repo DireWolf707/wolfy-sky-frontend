@@ -9,7 +9,9 @@ import CommentButton from "../button/CommentButton"
 const TweetCard = ({ tweet }) => {
   return (
     <Stack flexDirection="row" p="16px 16px 4px 16px" gap={2}>
-      <UserAvatar user={tweet.user} />
+      <Link to={`/public-profile/${tweet.userId}`}>
+        <UserAvatar user={tweet.user} />
+      </Link>
 
       <Stack flexGrow={1}>
         <Stack flexDirection="row" alignItems="center" gap={1}>
