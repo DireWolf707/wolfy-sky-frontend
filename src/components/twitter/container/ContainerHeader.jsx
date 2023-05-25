@@ -37,9 +37,11 @@ const ContainerHeader = ({ heading, refetch }) => {
         </Typography>
       </Stack>
 
-      <IconButton ref={refreshRef} onClick={refresh}>
-        <CachedIcon component={motion.svg} animate={controls} />
-      </IconButton>
+      {refetch && (
+        <IconButton ref={refreshRef} onClick={refresh}>
+          <CachedIcon component={motion.svg} animate={controls} />
+        </IconButton>
+      )}
     </Stack>
   )
 }
