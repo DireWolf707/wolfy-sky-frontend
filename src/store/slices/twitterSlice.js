@@ -25,6 +25,10 @@ export const twitterSlice = createSlice({
     popParentTweet(state, action) {
       state.parentTweetList.pop()
     },
+
+    resetParentTweetList(state, action) {
+      state.parentTweetList = []
+    },
   },
 })
 

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react"
 import { useParams } from "react-router"
-import { twitterApi } from "../store"
+import { useDispatch, twitterApi, twitterSliceActions } from "../store"
 import TwitterContainer from "../components/twitter/TwitterContainer"
 import TweetCard from "../components/twitter/card/TweetCard"
 import TweetInput from "../components/twitter/TweetInput"
@@ -9,6 +9,7 @@ import CircularLoader from "../components/loading/component/CircularLoader"
 import EmptyCard from "../components/twitter/card/EmptyCard"
 
 const Tweet = () => {
+  const dispatch = useDispatch()
   const { tweetId } = useParams()
   const [tweet, setTweet] = useState(null)
   const [comments, setComments] = useState(null)
@@ -25,6 +26,8 @@ const Tweet = () => {
     requestHandler(getTweet({ tweetId }).unwrap(), "fetching tweet", "tweet fetched").then(({ data }) => setTweet(data))
     refetch()
   }, [tweetId])
+
+  useEffect(() => () => dispatch(twitterSliceActions.resetParentTweetList()), [])
 
   return (
     <TwitterContainer heading="tweet" refetch={refetch}>
