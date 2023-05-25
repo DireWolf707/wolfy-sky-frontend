@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material"
+import { Stack, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
 import UserAvatar from "../../../components/layout/UserAvatar"
 import ImageCard from "./ImageCard"
