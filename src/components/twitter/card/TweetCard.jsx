@@ -20,20 +20,20 @@ const TweetCard = ({ tweet }) => {
           <Typography fontWeight={600} fontSize="13px" color="rgba(150,150,150)">
             @{tweet.user.username}
           </Typography>
-
-          <Typography fontWeight={600} fontSize="13px" color="rgba(150,150,150)">
-            {new Date(tweet.createdAt).toDateString()}
-          </Typography>
         </Stack>
 
         <Typography fontWeight={500} fontSize="15px">
           {tweet.content}
         </Typography>
 
-        <Stack flexDirection="row" gap={4} mt="4px">
+        <Stack flexDirection="row" alignItems="center" gap={3} mt="4px">
           <CommentButton tweetId={tweet.id} />
 
           <LikeButton tweetId={tweet.id} isLiked={tweet.isLiked} />
+
+          <Typography fontWeight={500} fontSize="12px" color="rgba(150,150,150)">
+            {new Date(tweet.createdAt).toDateString()}
+          </Typography>
         </Stack>
       </Stack>
     </Stack>
