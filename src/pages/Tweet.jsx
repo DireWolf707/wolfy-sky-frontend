@@ -14,6 +14,7 @@ const Tweet = () => {
   const [getComments] = twitterApi.useLazyGetCommentsQuery()
 
   const refetch = useCallback(async () => {
+    setComments(null)
     await requestHandler(getComments({ tweetId }).unwrap(), "fetching comments", "comments fetched").then(({ data }) => setComments(data))
   }, [])
 
