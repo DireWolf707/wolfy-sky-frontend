@@ -10,6 +10,7 @@ const Feed = () => {
   const [getFeed] = twitterApi.useLazyGetFeedQuery()
 
   const refetch = useCallback(async () => {
+    setFeed(null)
     await requestHandler(getFeed().unwrap(), "fetching feed", "feed fetched").then(({ data }) => setFeed(data))
   }, [])
 
