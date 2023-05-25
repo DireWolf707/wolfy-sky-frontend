@@ -8,7 +8,7 @@ const FollowRecomendationCard = ({ user }) => {
       <UserAvatar user={user} />
 
       <Stack>
-        <Link to={`/public-profile/${user.userId}`}>
+        <Link to={`/public-profile/${user.id}`}>
           <Typography fontWeight={600} fontSize="14px">
             {user.name}
           </Typography>
