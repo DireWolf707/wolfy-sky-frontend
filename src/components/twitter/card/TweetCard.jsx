@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material"
+import { Box, Stack, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
 import UserAvatar from "../../../components/layout/UserAvatar"
 import LikeButton from "../button/LikeButton"
@@ -25,6 +25,14 @@ const TweetCard = ({ tweet }) => {
         <Typography fontWeight={500} fontSize="15px">
           {tweet.content}
         </Typography>
+
+        {tweet.mediaType && (
+          <Stack mt="12px">
+            {tweet.mediaType === "img" && <Box component="img" src={tweet.mediaURL} width="100%" borderRadius="24px" />}
+
+            {tweet.mediaType === "vid" && <Box component="video" src={tweet.mediaURL} controls width="100%" borderRadius="24px" />}
+          </Stack>
+        )}
 
         <Stack flexDirection="row" alignItems="center" gap={3} mt="4px">
           <CommentButton tweetId={tweet.id} />
