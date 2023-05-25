@@ -3,6 +3,7 @@ import { twitterApi } from "../../../store"
 import { Stack, Typography } from "@mui/material"
 import FollowRecomendationCard from "../card/FollowRecomendationCard"
 import SearchButton from "../button/SearchButton"
+import CircularLoader from "../../loading/component/CircularLoader"
 
 const Rightbar = () => {
   const { pathname } = useLocation()
@@ -18,7 +19,7 @@ const Rightbar = () => {
         </Typography>
 
         {isFetching ? (
-          <>loading</>
+          <CircularLoader />
         ) : data?.data?.length ? (
           data?.data?.map((recomendation) => <FollowRecomendationCard user={recomendation} />)
         ) : (

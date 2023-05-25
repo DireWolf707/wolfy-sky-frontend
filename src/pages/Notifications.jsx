@@ -3,6 +3,8 @@ import { twitterApi } from "../store"
 import TwitterContainer from "../components/twitter/TwitterContainer"
 import NotificationCard from "../components/twitter/card/NotificationCard"
 import requestHandler from "../utils/requestHandler"
+import CircularLoader from "../components/loading/component/CircularLoader"
+import EmptyCard from "../components/twitter/card/EmptyCard"
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState(null)
@@ -22,9 +24,13 @@ const Notifications = () => {
   return (
     <TwitterContainer heading="notifications" refetch={refetch}>
       {notifications ? (
-        notifications.map((notification) => <NotificationCard key={notification.id} notification={notification} />)
+        notifications.length ? (
+          notifications.map((notification) => <NotificationCard key={notification.id} notification={notification} />)
+        ) : (
+          <EmptyCard />
+        )
       ) : (
-        <>loading</>
+        <CircularLoader />
       )}
     </TwitterContainer>
   )

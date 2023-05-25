@@ -6,6 +6,8 @@ import TwitterContainer from "../components/twitter/TwitterContainer"
 import SearchButton from "../components/twitter/button/SearchButton"
 import SearchCard from "../components/twitter/card/SearchCard"
 import requestHandler from "../utils/requestHandler"
+import CircularLoader from "../components/loading/component/CircularLoader"
+import EmptyCard from "../components/twitter/card/EmptyCard"
 
 const Search = () => {
   const [searchParams] = useSearchParams()
@@ -28,11 +30,15 @@ const Search = () => {
       </Stack>
 
       {!q ? (
-        <>search something....</>
+        <EmptyCard text="search username" />
       ) : searchResult ? (
-        searchResult.map(({ user, Follow }) => <SearchCard key={user.id} user={user} isFollowed={Boolean(Follow)} />)
+        searchResult.length ? (
+          searchResult.map(({ user, Follow }) => <SearchCard key={user.id} user={user} isFollowed={Boolean(Follow)} />)
+        ) : (
+          <EmptyCard text="no user found" />
+        )
       ) : (
-        <>loading...</>
+        <CircularLoader />
       )}
     </TwitterContainer>
   )

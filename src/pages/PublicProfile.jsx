@@ -9,6 +9,8 @@ import FollowButton from "../components/twitter/button/FollowButton"
 import UserAvatar from "../components/layout/UserAvatar"
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 import requestHandler from "../utils/requestHandler"
+import CircularLoader from "../components/loading/component/CircularLoader"
+import EmptyCard from "../components/twitter/card/EmptyCard"
 
 const PublicProfile = () => {
   const { userId } = useParams()
@@ -89,10 +91,14 @@ const PublicProfile = () => {
             </Stack>
           </Stack>
 
-          {profile ? profile.tweets.map((tweet) => <TweetCard key={tweet.id} tweet={tweet} />) : <>loading</>}
+          {profile.tweets.length ? (
+            profile.tweets.map((tweet) => <TweetCard key={tweet.id} tweet={tweet} />)
+          ) : (
+            <EmptyCard text="no tweets found" />
+          )}
         </>
       ) : (
-        <>loading...</>
+        <CircularLoader />
       )}
     </TwitterContainer>
   )

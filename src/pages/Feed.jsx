@@ -4,6 +4,8 @@ import TwitterContainer from "../components/twitter/TwitterContainer"
 import TweetCard from "../components/twitter/card/TweetCard"
 import TweetInput from "../components/twitter/TweetInput"
 import requestHandler from "../utils/requestHandler"
+import CircularLoader from "../components/loading/component/CircularLoader"
+import EmptyCard from "../components/twitter/card/EmptyCard"
 
 const Feed = () => {
   const [feed, setFeed] = useState(null)
@@ -22,7 +24,7 @@ const Feed = () => {
     <TwitterContainer heading="home" refetch={refetch}>
       <TweetInput />
 
-      {feed ? feed.map((tweet) => <TweetCard key={tweet.id} tweet={tweet} />) : <>loading</>}
+      {feed ? feed.length ? feed.map((tweet) => <TweetCard key={tweet.id} tweet={tweet} />) : <EmptyCard /> : <CircularLoader />}
     </TwitterContainer>
   )
 }
