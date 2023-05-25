@@ -5,7 +5,8 @@ export const twitterSlice = createSlice({
 
   initialState: {
     containerTopRef: null,
-    isTweetModalOpen: false
+    isTweetModalOpen: false,
+    parentTweetList: [],
   },
 
   reducers: {
@@ -15,6 +16,14 @@ export const twitterSlice = createSlice({
 
     toggleTweetModal(state, action) {
       state.isTweetModalOpen = action.payload
+    },
+
+    pushParentTweet(state, action) {
+      state.parentTweetList.push(action.payload)
+    },
+
+    popParentTweet(state, action) {
+      state.parentTweetList.pop()
     },
   },
 })
