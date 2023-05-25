@@ -57,7 +57,7 @@ const Leftbar = () => {
       <LeftbarLink
         title="profile"
         href={`/public-profile/${data.data.id}`}
-        Icon={pathname.startsWith("/public-profile") ? PersonIcon : PersonOutlineIcon}
+        Icon={pathname === `/public-profile/${data.data.id}` ? PersonIcon : PersonOutlineIcon}
         textVisible={textVisible}
       />
       {searchEnabled && (
