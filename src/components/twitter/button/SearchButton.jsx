@@ -2,6 +2,8 @@ import { useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { Box, Stack } from "@mui/material"
 import SearchIcon from "@mui/icons-material/Search"
+import { toast } from "react-hot-toast"
+import Toast from "../../layout/Toast"
 
 const SearchButton = ({ defaultValue = "" }) => {
   const navigate = useNavigate()
@@ -10,7 +12,7 @@ const SearchButton = ({ defaultValue = "" }) => {
   const searchHandler = (e) => {
     e.preventDefault()
     const query = searchRef.current.value
-    if (!query) return
+    if (!query) return toast.error(Toast("please write something"))
 
     const params = new URLSearchParams({ q: query })
     navigate(`/search?${params.toString()}`)

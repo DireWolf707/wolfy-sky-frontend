@@ -9,6 +9,8 @@ import ContainerDivider from "./container/ContainerDivider"
 import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined"
 import CancelIcon from "@mui/icons-material/Cancel"
 import requestHandler from "../../utils/requestHandler"
+import { toast } from "react-hot-toast"
+import Toast from "../layout/Toast"
 
 const TweetInput = ({
   onComplete,
@@ -50,7 +52,7 @@ const TweetInput = ({
     const content = tweetRef.current.value
     const file = fileRef.current.files[0]
 
-    if (!content) return
+    if (!content) return toast.error(Toast("please write something"))
 
     const body = new FormData()
     body.append("content", content)
