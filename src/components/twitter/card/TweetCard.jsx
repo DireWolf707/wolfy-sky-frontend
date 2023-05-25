@@ -1,6 +1,8 @@
 import { Box, Stack, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
 import UserAvatar from "../../../components/layout/UserAvatar"
+import ImageCard from "./ImageCard"
+import VideoCard from "./VideoCard"
 import LikeButton from "../button/LikeButton"
 import CommentButton from "../button/CommentButton"
 
@@ -9,7 +11,7 @@ const TweetCard = ({ tweet }) => {
     <Stack flexDirection="row" p="16px 16px 4px 16px" gap={2}>
       <UserAvatar user={tweet.user} />
 
-      <Stack>
+      <Stack flexGrow={1}>
         <Stack flexDirection="row" alignItems="center" gap={1}>
           <Link to={`/public-profile/${tweet.userId}`}>
             <Typography fontWeight={600} fontSize="14px">
@@ -27,10 +29,10 @@ const TweetCard = ({ tweet }) => {
         </Typography>
 
         {tweet.mediaType && (
-          <Stack mt="12px">
-            {tweet.mediaType === "img" && <Box component="img" src={tweet.mediaURL} width="100%" borderRadius="24px" />}
+          <Stack mt="12px" justifyContent="center">
+            {tweet.mediaType === "img" && <ImageCard src={tweet.mediaURL} />}
 
-            {tweet.mediaType === "vid" && <Box component="video" src={tweet.mediaURL} controls width="100%" borderRadius="24px" />}
+            {tweet.mediaType === "vid" && <VideoCard src={tweet.mediaURL} />}
           </Stack>
         )}
 
