@@ -10,7 +10,7 @@ const SearchCard = ({ user, isFollowed }) => {
         <UserAvatar user={user} />
 
         <Stack>
-          <Link to={`/public-profile/${user.userId}`}>
+          <Link to={`/public-profile/${user.id}`}>
             <Typography fontWeight={600} fontSize="15px">
               {user.name}
             </Typography>
