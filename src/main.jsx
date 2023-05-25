@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <StoreProvider store={store}>
     <PersistGate persistor={persistor}>
       <ThemeProvider theme={theme}>
-        <Toaster position="top-right" toastOptions={{ duration: 500 }} />
+        <Toaster position="top-right" />
 
         <AuthCheck>
           <Router>
