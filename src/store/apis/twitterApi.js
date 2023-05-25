@@ -38,6 +38,13 @@ export default createApi({
         }),
       }),
 
+      getComments: builder.query({
+        query: ({ tweetId }) => ({
+          url: `/tweet/${tweetId}/comments`,
+          method: "GET",
+        }),
+      }),
+
       getFollowRecomendations: builder.query({
         query: () => ({
           url: "/recomendations",
@@ -55,14 +62,6 @@ export default createApi({
       createTweet: builder.mutation({
         query: ({ body }) => ({
           url: "/tweet",
-          method: "POST",
-          body,
-        }),
-      }),
-
-      replyTweet: builder.mutation({
-        query: ({ body, tweetId }) => ({
-          url: `/tweet/${tweetId}/reply`,
           method: "POST",
           body,
         }),
