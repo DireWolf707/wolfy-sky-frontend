@@ -1,4 +1,5 @@
-import { useState, useRef } from "react"
+import { useState, useEffect, useRef } from "react"
+import { useLocation } from "react-router-dom"
 import { Box, Stack, Typography, Button, IconButton } from "@mui/material"
 import { twitterApi } from "../../store"
 import UserAvatar from "../layout/UserAvatar"
@@ -16,10 +17,16 @@ const TweetInput = ({
   parentTweetId = null,
   filePreviewInitialState = { show: false, type: null, src: null },
 }) => {
+  const { pathname } = useLocation()
   const tweetRef = useRef(null)
   const fileRef = useRef(null)
   const [filePreview, setFilePreview] = useState(filePreviewInitialState)
   const [createTweet, { isLoading }] = twitterApi.useCreateTweetMutation()
+
+  useEffect(() => {
+    tweetRef.current.value = ""
+    handleUnsetFilePreview()
+  }, [pathname])
 
   const handleSetFilePreview = (e) => {
     const [file] = e.target.files
