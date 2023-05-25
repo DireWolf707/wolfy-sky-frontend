@@ -6,7 +6,7 @@ import SearchButton from "../button/SearchButton"
 
 const Rightbar = () => {
   const { pathname } = useLocation()
-  const { data, isFetching, isError } = twitterApi.useGetFollowRecomendationsQuery()
+  const { data, isFetching } = twitterApi.useGetFollowRecomendationsQuery()
 
   return (
     <Stack flexShrink={0} width="250px" gap={2} sx={{ display: { xs: "none", lg: "flex" } }}>
@@ -19,7 +19,7 @@ const Rightbar = () => {
 
         <FollowRecomendationCard user={{ name: "Direwolf", username: "direwolf707", userId: "11abdbb8-0a5d-492e-b757-e6e0844a9474" }} />
 
-        <>{isFetching || isError ? <>loading</> : data.data.map((recomendation) => <FollowRecomendationCard user={recomendation} />)}</>
+        {isFetching ? <>loading</> : data?.data?.map((recomendation) => <FollowRecomendationCard user={recomendation} />)}
       </Stack>
     </Stack>
   )
