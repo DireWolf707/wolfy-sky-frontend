@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import { Box, Stack, Typography } from "@mui/material"
 import { userApi, twitterApi } from "../store"
 import TwitterContainer from "../components/twitter/TwitterContainer"
+import ContainerDivider from "../components/twitter/container/ContainerDivider"
 import TweetCard from "../components/twitter/card/TweetCard"
 import ProfileEditButton from "../components/twitter/button/ProfileEditButton"
 import FollowButton from "../components/twitter/button/FollowButton"
@@ -34,7 +35,7 @@ const PublicProfile = () => {
       <Box flexShrink={0} bgcolor="rgba(150,150,150)" height="140px" />
 
       {profile ? (
-        <>
+        <Stack divider={<ContainerDivider />}>
           <Stack p="12px">
             <Stack flexDirection="row" justifyContent="space-between" alignItems="start">
               <Stack mt="-68px" ml="8px" border="4px solid #000" borderRadius="100%">
@@ -91,12 +92,14 @@ const PublicProfile = () => {
             </Stack>
           </Stack>
 
-          {profile.tweets.length ? (
-            profile.tweets.map((tweet) => <TweetCard key={tweet.id} tweet={tweet} />)
-          ) : (
-            <EmptyCard text="no tweets found" />
-          )}
-        </>
+          <Stack divider={<ContainerDivider />}>
+            {profile.tweets.length ? (
+              profile.tweets.map((tweet) => <TweetCard key={tweet.id} tweet={tweet} />)
+            ) : (
+              <EmptyCard text="no tweets found" />
+            )}
+          </Stack>
+        </Stack>
       ) : (
         <CircularLoader />
       )}
