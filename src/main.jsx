@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client"
 import App from "./App.jsx"
 import AuthCheck from "./components/wrapper/AuthCheck"
-import { ThemeProvider } from "@mui/material"
+import { ThemeProvider, duration } from "@mui/material"
 import { Provider as StoreProvider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
 import { BrowserRouter as Router } from "react-router-dom"
@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <StoreProvider store={store}>
     <PersistGate persistor={persistor}>
       <ThemeProvider theme={theme}>
-        <Toaster />
+        <Toaster position="top-right" toastOptions={{ duration: 500 }} />
 
         <AuthCheck>
           <Router>
