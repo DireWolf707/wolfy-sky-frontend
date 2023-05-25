@@ -2,12 +2,20 @@ import { useState, useRef } from "react"
 import { Box, Stack, Typography, Button, IconButton } from "@mui/material"
 import { twitterApi } from "../../store"
 import UserAvatar from "../layout/UserAvatar"
+import ImageCard from "./card/ImageCard"
+import VideoCard from "./card/VideoCard"
 import ContainerDivider from "./container/ContainerDivider"
 import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined"
 import CancelIcon from "@mui/icons-material/Cancel"
 import requestHandler from "../../utils/requestHandler"
 
-const TweetInput = ({ row = 6, parentTweetId = null, filePreviewInitialState = { show: false, type: null, src: null } }) => {
+const TweetInput = ({
+  onComplete,
+  disabled,
+  row = 6,
+  parentTweetId = null,
+  filePreviewInitialState = { show: false, type: null, src: null },
+}) => {
   const tweetRef = useRef(null)
   const fileRef = useRef(null)
   const [filePreview, setFilePreview] = useState(filePreviewInitialState)
@@ -21,7 +29,7 @@ const TweetInput = ({ row = 6, parentTweetId = null, filePreviewInitialState = {
     const src = URL.createObjectURL(file)
 
     if (file.type.startsWith("image")) type = "img"
-    else if (file.type.startsWith("video")) type = "video"
+    else if (file.type.startsWith("video")) type = "vid"
 
     setFilePreview({ show: true, type, src })
   }
@@ -32,16 +40,27 @@ const TweetInput = ({ row = 6, parentTweetId = null, filePreviewInitialState = {
   }
 
   const handleCreateTweet = () => {
-    console.log(fileRef.current.files)
-    const body = {
-      parentTweetId,
-      content: tweetRef.current.value,
-    }
+    const content = tweetRef.current.value
+    const file = fileRef.current.files[0]
+
+    if (!content) return
+
+    const body = new FormData()
+    body.append("content", content)
+    if (parentTweetId) body.append("parentTweetId", parentTweetId)
+    if (file) body.append("media", file)
+
     requestHandler(createTweet({ body }).unwrap(), "creating tweet", "tweet created")
+      .then((resp) => {
+        tweetRef.current.value = ""
+        handleUnsetFilePreview()
+        return resp
+      })
+      .then(onComplete)
   }
 
   return (
-    <Stack p="16px" gap={1} divider={<ContainerDivider />}>
+    <Stack gap={1} bgcolor="rgba(255,255,255,0.1)" p="16px" divider={<ContainerDivider />}>
       <Stack flexDirection="row" gap={1.5}>
         <UserAvatar user={{ username: "DW" }} />
 
@@ -54,20 +73,20 @@ const TweetInput = ({ row = 6, parentTweetId = null, filePreviewInitialState = {
             fontSize="18px"
             placeholder={parentTweetId ? "Any reply?" : "What's going on?"}
             rows={row}
-            bgcolor="#000"
+            bgcolor="transparent"
             mt="8px"
           />
 
           {/* File Preview */}
           {filePreview.show && (
             <Stack position="relative">
-              <IconButton onClick={handleUnsetFilePreview} sx={{ position: "absolute", m: "1px", zIndex: 1 }}>
+              <IconButton onClick={handleUnsetFilePreview} sx={{ position: "absolute", zIndex: 1, left: "50%", translate: "-50%" }}>
                 <CancelIcon sx={{ fill: "rgba(0,0,0,0.8)", bgcolor: "#fff", borderRadius: "100%", fontSize: { xs: "24px", md: "36px" } }} />
               </IconButton>
 
-              {filePreview.type === "img" && <Box component="img" src={filePreview.src} width="100%" borderRadius="24px" />}
+              {filePreview.type === "img" && <ImageCard src={filePreview.src} />}
 
-              {filePreview.type === "video" && <Box component="video" src={filePreview.src} controls width="100%" borderRadius="24px" />}
+              {filePreview.type === "vid" && <VideoCard src={filePreview.src} />}
             </Stack>
           )}
         </Stack>
@@ -76,19 +95,13 @@ const TweetInput = ({ row = 6, parentTweetId = null, filePreviewInitialState = {
       <Stack flexDirection="row" justifyContent="space-between" px="8px">
         {/* File Input */}
         <IconButton onClick={() => fileRef.current.click()}>
-          <input
-            ref={fileRef}
-            onChange={handleSetFilePreview}
-            // disabled={}
-            type="file"
-            hidden
-          />
+          <input ref={fileRef} onChange={handleSetFilePreview} disabled={isLoading} type="file" hidden />
           <InsertPhotoOutlinedIcon sx={{ fill: "#4072F4" }} />
         </IconButton>
 
         <Button
           onClick={handleCreateTweet}
-          disabled={isLoading}
+          disabled={isLoading || disabled}
           variant="contained"
           sx={{ alignSelf: "end", borderRadius: "24px", bgcolor: "#4072F4" }}
         >
