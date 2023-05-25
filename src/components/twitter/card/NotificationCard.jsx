@@ -9,22 +9,22 @@ const TweetLink = ({ href }) => (
 )
 
 const NotificationContent = ({ notification }) => {
-  switch (notification.action) {
-    case "liked":
+  switch (notification.type) {
+    case "like":
       return (
         <>
           liked your <TweetLink href={notification.tweetId} />!
         </>
       )
 
-    case "replied":
+    case "comment":
       return (
         <>
           replied on your <TweetLink href={notification.tweetId} />!
         </>
       )
 
-    case "followed":
+    case "follow":
       return <>followed you!</>
 
     default:
@@ -39,7 +39,7 @@ const NotificationCard = ({ notification }) => {
 
       <Typography fontWeight={500} fontSize="16px">
         <Link
-          to={`/public-profile/${notification.userId}`}
+          to={`/public-profile/${notification.user.id}`}
           style={{ textDecoration: "underline", textUnderlineOffset: "4px", textDecorationColor: "#4072F4" }}
         >
           {notification.user.name}
