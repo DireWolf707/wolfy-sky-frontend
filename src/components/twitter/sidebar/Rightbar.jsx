@@ -21,9 +21,9 @@ const Rightbar = () => {
         {isFetching ? (
           <CircularLoader />
         ) : data?.data?.length ? (
-          data?.data?.map((recomendation) => <FollowRecomendationCard user={recomendation} />)
+          data?.data?.map((recomendation) => <FollowRecomendationCard key={recomendation.id} user={recomendation} />)
         ) : (
-          <FollowRecomendationCard user={{ name: "Direwolf", username: "direwolf707", userId: "11abdbb8-0a5d-492e-b757-e6e0844a9474" }} />
+          <FollowRecomendationCard user={{ name: "Direwolf", username: "direwolf707", userId: "1ef159c9-9b5d-4e66-a7ea-90cd47bced45" }} />
         )}
       </Stack>
     </Stack>
