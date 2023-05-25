@@ -29,11 +29,13 @@ const Tweet = () => {
 
   useEffect(() => () => dispatch(twitterSliceActions.resetParentTweetList()), [])
 
+  const onComplete = ({ data }) => setComments((pv) => [data, ...pv])
+
   return (
     <TwitterContainer heading="tweet" refetch={refetch}>
       {tweet ? <TweetCard tweet={tweet} /> : <CircularLoader />}
 
-      <TweetInput parentTweetId={tweetId} />
+      <TweetInput parentTweetId={tweetId} onComplete={onComplete} disabled={!Boolean(comments)} />
 
       {comments ? (
         comments.length ? (

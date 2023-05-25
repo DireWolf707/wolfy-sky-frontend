@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom"
 import { Modal, Stack, IconButton } from "@mui/material"
 import TweetInput from "../TweetInput"
 import { useSelector, useDispatch, twitterSliceActions } from "../../../store"
@@ -5,9 +6,16 @@ import CloseIcon from "@mui/icons-material/Close"
 
 const TweetInputModal = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { isTweetModalOpen } = useSelector((store) => store.twitter)
 
   const closeModal = () => dispatch(twitterSliceActions.toggleTweetModal(false))
+
+  const onComplete = ({ data }) => {
+    dispatch(twitterSliceActions.updateFeed(data))
+    closeModal()
+    navigate("/feed")
+  }
 
   return (
     <Modal
@@ -25,7 +33,7 @@ const TweetInputModal = () => {
           <CloseIcon />
         </IconButton>
 
-        <TweetInput />
+        <TweetInput onComplete={onComplete} />
       </Stack>
     </Modal>
   )
