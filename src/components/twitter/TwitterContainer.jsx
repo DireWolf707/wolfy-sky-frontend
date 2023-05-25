@@ -23,7 +23,7 @@ const TwitterContainer = ({ children, heading, refetch }) => {
     >
       <ContainerHeader heading={heading} refetch={refetch} />
 
-      <Stack overflow="auto" divider={<ContainerDivider />}>
+      <Stack overflow="auto" pb="36px" divider={<ContainerDivider />}>
         <Box ref={containerTopRef} visibility="hidden" />
 
         {children}
