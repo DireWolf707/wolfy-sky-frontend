@@ -17,7 +17,10 @@ const NotificationButton = ({ title, href, Icon, textVisible }) => {
     return () => socket.off(notificationSubEvent, notificationSubHandler)
   }, [])
 
-  const onClickHandler = () => navigate(href)
+  const onClickHandler = () => {
+    setNumNotifications(0)
+    navigate(href)
+  }
 
   if (textVisible)
     return (
