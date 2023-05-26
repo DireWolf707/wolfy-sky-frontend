@@ -26,7 +26,6 @@ const TweetInput = ({
   const [createTweet, { isLoading }] = twitterApi.useCreateTweetMutation()
   const {
     data: { data: user },
-    isFetching,
   } = userApi.useFetchProfileQuery()
 
   useEffect(() => {
