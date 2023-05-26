@@ -31,7 +31,13 @@ const Feed = () => {
         feed.length ? (
           feed.map(({ tweet, isTweetLiked, parentTweet, isParentTweetLiked }) => {
             if (parentTweet)
-              return <ParentChildTweetCard key={tweet.id} parentTweet={{ ...parentTweet, isLiked: isParentTweetLiked }} tweet={tweet} />
+              return (
+                <ParentChildTweetCard
+                  key={tweet.id}
+                  parentTweet={{ ...parentTweet, isLiked: isParentTweetLiked }}
+                  tweet={{ ...tweet, isLiked: isTweetLiked }}
+                />
+              )
             return <TweetCard key={tweet.id} tweet={{ ...tweet, isLiked: isTweetLiked }} />
           })
         ) : (
