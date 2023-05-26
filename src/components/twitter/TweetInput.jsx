@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { useLocation } from "react-router-dom"
 import { Box, Stack, Typography, Button, IconButton } from "@mui/material"
-import { twitterApi } from "../../store"
+import { userApi, twitterApi } from "../../store"
 import UserAvatar from "../layout/UserAvatar"
 import ImageCard from "./card/ImageCard"
 import VideoCard from "./card/VideoCard"
@@ -24,6 +24,10 @@ const TweetInput = ({
   const fileRef = useRef(null)
   const [filePreview, setFilePreview] = useState(filePreviewInitialState)
   const [createTweet, { isLoading }] = twitterApi.useCreateTweetMutation()
+  const {
+    data: { data: user },
+    isFetching,
+  } = userApi.useFetchProfileQuery()
 
   useEffect(() => {
     tweetRef.current.value = ""
@@ -71,7 +75,7 @@ const TweetInput = ({
   return (
     <Stack gap={1} bgcolor="rgba(255,255,255,0.1)" p="16px" divider={<ContainerDivider />}>
       <Stack flexDirection="row" gap={1.5}>
-        <UserAvatar user={{ username: "DW" }} />
+        <UserAvatar user={user} />
 
         <Stack flexGrow={1} gap={2}>
           <Box
