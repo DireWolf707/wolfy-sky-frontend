@@ -10,8 +10,9 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline"
 import HistoryEduIcon from "@mui/icons-material/HistoryEdu"
 import SearchIcon from "@mui/icons-material/Search"
 import SavedSearchIcon from "@mui/icons-material/SavedSearch"
+import NotificationButton from "../button/NotificationButton"
 
-const LeftbarLink = ({ title, href, Icon, textVisible }) => {
+const LeftbarButton = ({ title, href, Icon, textVisible }) => {
   const navigate = useNavigate()
 
   const onClickHandler = () => navigate(href)
@@ -47,21 +48,21 @@ const Leftbar = () => {
 
   return (
     <Stack flexShrink={0} alignItems="start" gap={2} sx={{ width: { xs: "auto", sm: "180px" } }}>
-      <LeftbarLink title="home" href="/feed" Icon={pathname === "/feed" ? HomeIcon : HomeOutlinedIcon} textVisible={textVisible} />
-      <LeftbarLink
+      <LeftbarButton title="home" href="/feed" Icon={pathname === "/feed" ? HomeIcon : HomeOutlinedIcon} textVisible={textVisible} />
+      <NotificationButton
         title="notifications"
         href="/notifications"
         Icon={pathname === "/notifications" ? NotificationsIcon : NotificationsOutlinedIcon}
         textVisible={textVisible}
       />
-      <LeftbarLink
+      <LeftbarButton
         title="profile"
         href={`/public-profile/${data.data.id}`}
         Icon={pathname === `/public-profile/${data.data.id}` ? PersonIcon : PersonOutlineIcon}
         textVisible={textVisible}
       />
       {searchEnabled && (
-        <LeftbarLink
+        <LeftbarButton
           title="search"
           href="/search"
           Icon={pathname.startsWith("/search") ? SavedSearchIcon : SearchIcon}
