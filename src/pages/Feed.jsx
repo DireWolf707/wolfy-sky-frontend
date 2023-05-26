@@ -29,12 +29,13 @@ const Feed = () => {
 
       {feed ? (
         feed.length ? (
-          feed.map(({ tweet, parentTweet }) => {
-            if (parentTweet) return <ParentChildTweetCard key={tweet.id} parentTweet={parentTweet} tweet={tweet} />
-            return <TweetCard key={tweet.id} tweet={tweet} />
+          feed.map(({ tweet, isTweetLiked, parentTweet, isParentTweetLiked }) => {
+            if (parentTweet)
+              return <ParentChildTweetCard key={tweet.id} parentTweet={{ ...parentTweet, isLiked: isParentTweetLiked }} tweet={tweet} />
+            return <TweetCard key={tweet.id} tweet={{ ...tweet, isLiked: isTweetLiked }} />
           })
         ) : (
-          <EmptyCard />
+          <EmptyCard text="nothing to show ☹ No friends no problem follow Direwolf (me)" />
         )
       ) : (
         <CircularLoader />
