@@ -23,7 +23,9 @@ const Rightbar = () => {
         ) : data?.data?.length ? (
           data?.data?.map((recomendation) => <FollowRecomendationCard key={recomendation.id} user={recomendation} />)
         ) : (
-          <FollowRecomendationCard user={{ name: "Direwolf", username: "direwolf707", userId: "1ef159c9-9b5d-4e66-a7ea-90cd47bced45" }} />
+          <Typography fontWeight={500} textAlign="center" p="20px" color="rgba(150,150,150)">
+            follow @direwolf
+          </Typography>
         )}
       </Stack>
     </Stack>
