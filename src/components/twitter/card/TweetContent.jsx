@@ -1,13 +1,48 @@
+import { useState, useEffect, useRef } from "react"
 import { Stack, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
 import ImageCard from "./ImageCard"
 import VideoCard from "./VideoCard"
 import LikeButton from "../button/LikeButton"
 import CommentButton from "../button/CommentButton"
+import DateFormat from "./DateFormat"
+import { useInView } from "framer-motion"
+import socket from "../../../utils/socket"
+import roomKey from "../../../utils/roomKey"
 
 const TweetContent = ({ tweet }) => {
+  const contentRef = useRef(null)
+  const isInView = useInView(contentRef)
+  const [metadata, setMetadata] = useState({ likes: null, comments: null })
+
+  useEffect(() => {
+    if (isInView) {
+      // tweet room key
+      const key = roomKey("tweet", tweet.id)
+      // like event and handler
+      const likeSubEvent = roomKey(key, "likes")
+      const likeSubHandler = (likes) => setMetadata((pv) => ({ ...pv, likes }))
+      // comment event and handler
+      const commentSubEvent = roomKey(key, "comments")
+      const commentSubHandler = (comments) => setMetadata((pv) => ({ ...pv, comments }))
+      // sub to tweet
+      socket
+        .emitWithAck("sub_tweet", { tweetId: tweet.id })
+        // set metadata
+        .then(setMetadata)
+        // set listeners
+        .then(() => {
+          socket.on(likeSubEvent, likeSubHandler)
+          socket.on(commentSubEvent, commentSubHandler)
+        })
+
+      return () =>
+        socket.emit("unsub_tweet", { tweetId: tweet.id }).off(likeSubEvent, likeSubHandler).off(commentSubEvent, commentSubHandler)
+    }
+  }, [isInView])
+
   return (
-    <Stack flexGrow={1}>
+    <Stack ref={contentRef} flexGrow={1}>
       <Stack flexDirection="row" alignItems="center" gap={1}>
         <Link to={`/public-profile/${tweet.userId}`}>
           <Typography fontWeight={600} fontSize="14px">
@@ -32,14 +67,14 @@ const TweetContent = ({ tweet }) => {
         </Stack>
       )}
 
-      <Stack flexDirection="row" alignItems="center" gap={3} mt="4px">
-        <CommentButton tweetId={tweet.id} />
+      <Stack mt="8px">
+        <DateFormat date={tweet.createdAt} />
+      </Stack>
 
-        <LikeButton tweetId={tweet.id} isLiked={tweet.isLiked} />
+      <Stack flexDirection="row" alignItems="center" mt="6px">
+        <CommentButton tweetId={tweet.id} comments={metadata.comments} />
 
-        <Typography fontWeight={500} fontSize="12px" color="rgba(150,150,150)">
-          {new Date(tweet.createdAt).toDateString()}
-        </Typography>
+        <LikeButton tweetId={tweet.id} likes={metadata.likes} isLiked={tweet.isLiked} />
       </Stack>
     </Stack>
   )

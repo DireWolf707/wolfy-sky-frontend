@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import SmsOutlinedIcon from "@mui/icons-material/SmsOutlined"
 import { useDispatch, twitterSliceActions } from "../../../store"
 
-const CommentButton = ({ tweetId }) => {
+const CommentButton = ({ tweetId, comments }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { tweetId: currentTweetId = null } = useParams()
@@ -14,12 +14,12 @@ const CommentButton = ({ tweetId }) => {
   }
 
   return (
-    <Stack flexDirection="row" alignItems="center">
+    <Stack flexDirection="row" alignItems="center" width="64px">
       <IconButton onClick={onClickHandler} disabled={currentTweetId === tweetId}>
         <SmsOutlinedIcon fontSize="small" sx={{ fill: "rgba(150,150,150)" }} />
       </IconButton>
 
-      <Typography color="rgba(150,150,150)">0</Typography>
+      <Typography color="rgba(150,150,150)">{comments}</Typography>
     </Stack>
   )
 }

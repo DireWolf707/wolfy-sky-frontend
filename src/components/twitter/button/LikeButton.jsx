@@ -5,7 +5,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import requestHandler from "../../../utils/requestHandler"
 
-const LikeButton = ({ tweetId, isLiked: _isLiked }) => {
+const LikeButton = ({ tweetId, likes, isLiked: _isLiked }) => {
   const [isLiked, setIsLiked] = useState(_isLiked)
   const [like, { isLoading: isLiking }] = twitterApi.useLikeMutation()
   const [unlike, { isLoading: isUnliking }] = twitterApi.useUnlikeMutation()
@@ -15,7 +15,7 @@ const LikeButton = ({ tweetId, isLiked: _isLiked }) => {
   const unlikeHandler = () => requestHandler(unlike({ tweetId }).unwrap(), "unliking tweet", "tweet unliked").then(() => setIsLiked(false))
 
   return (
-    <Stack flexDirection="row" alignItems="center">
+    <Stack flexDirection="row" alignItems="center" width="64px">
       {isLiked ? (
         <IconButton onClick={unlikeHandler} disabled={isUnliking}>
           <FavoriteIcon fontSize="small" sx={{ fill: "red" }} />
@@ -26,7 +26,7 @@ const LikeButton = ({ tweetId, isLiked: _isLiked }) => {
         </IconButton>
       )}
 
-      <Typography color="rgba(150,150,150)">0</Typography>
+      <Typography color="rgba(150,150,150)">{likes}</Typography>
     </Stack>
   )
 }
