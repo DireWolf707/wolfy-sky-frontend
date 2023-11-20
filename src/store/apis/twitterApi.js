@@ -46,6 +46,7 @@ export default createApi({
       }),
 
       getFollowRecomendations: builder.query({
+        providesTags: ["followRecomendations"],
         query: () => ({
           url: "/recomendations",
           method: "GET",
@@ -82,6 +83,7 @@ export default createApi({
       }),
 
       follow: builder.mutation({
+        invalidatesTags: (resp, err, arg) => (err ? [] : ["followRecomendations"]),
         query: ({ userId }) => ({
           url: `/profile/${userId}/follow`,
           method: "POST",
@@ -89,6 +91,7 @@ export default createApi({
       }),
 
       unfollow: builder.mutation({
+        invalidatesTags: (resp, err, arg) => (err ? [] : ["followRecomendations"]),
         query: ({ userId }) => ({
           url: `/profile/${userId}/follow`,
           method: "DELETE",
