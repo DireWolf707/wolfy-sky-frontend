@@ -26,7 +26,7 @@ const NotificationButton = ({ title, href, Icon, textVisible }) => {
     return (
       <Button onClick={onClickHandler}>
         <Stack flexDirection="row" alignItems="center" gap={1.2}>
-          <Badge badgeContent={numNotifications} color="primary">
+          <Badge overlap="circular" variant="dot" badgeContent={numNotifications} color="primary">
             <Icon fontSize="large" />
           </Badge>
 
