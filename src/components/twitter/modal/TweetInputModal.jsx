@@ -11,8 +11,8 @@ const TweetInputModal = () => {
 
   const closeModal = () => dispatch(twitterSliceActions.toggleTweetModal(false))
 
-  const onComplete = () => {
-    navigate("/feed")
+  const onComplete = ({ data }) => {
+    navigate("/feed", { state: { data } })
     closeModal()
   }
 
