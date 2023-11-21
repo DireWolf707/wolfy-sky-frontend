@@ -39,7 +39,7 @@ const NotificationButton = ({ title, href, Icon, textVisible }) => {
 
   return (
     <IconButton onClick={onClickHandler}>
-      <Badge badgeContent={numNotifications} color="primary">
+      <Badge overlap="circular" variant="dot" badgeContent={numNotifications} color="primary">
         <Icon />
       </Badge>
     </IconButton>
