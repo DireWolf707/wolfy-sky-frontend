@@ -6,7 +6,7 @@ import TweetCard from "../components/twitter/card/TweetCard"
 import TweetInput from "../components/twitter/TweetInput"
 import requestHandler from "../utils/requestHandler"
 import CircularLoader from "../components/loading/component/CircularLoader"
-import EmptyCard from "../components/twitter/card/EmptyCard"
+import TwitterFeed from "../components/twitter/TwitterFeed"
 
 const Tweet = () => {
   const dispatch = useDispatch()
@@ -21,6 +21,19 @@ const Tweet = () => {
     await requestHandler(getComments({ tweetId }).unwrap(), "fetching comments", "comments fetched").then(({ data }) => setComments(data))
   }, [tweetId])
 
+  const tweetLikeHandler = useCallback(async (tweetId, liked) =>
+    setTweet((pv) => ({ ...pv, isLiked: liked }))
+    , [])
+
+  const commentsLikeHandler = useCallback(async (tweetId, liked) =>
+    setComments((pv) => pv.map(feedItem => {
+      const newFeedItem = { ...feedItem }
+      if (feedItem.tweet.id === tweetId) newFeedItem.isTweetLiked = liked
+      if (feedItem?.parentTweet?.id === tweetId) newFeedItem.isParentTweetLiked = liked
+      return newFeedItem
+    }))
+    , [])
+
   useEffect(() => {
     setTweet(null) // to unset tweet in case of page change (comments get unset in refetch)
     requestHandler(getTweet({ tweetId }).unwrap(), "fetching tweet", "tweet fetched").then(({ data }) => setTweet(data))
@@ -29,23 +42,16 @@ const Tweet = () => {
 
   useEffect(() => () => dispatch(twitterSliceActions.resetParentTweetList()), [])
 
-  const onComplete = ({ data }) => setComments((pv) => [data, ...pv])
+  const onComplete = ({ data }) => setComments((pv) => [{ tweet: data }, ...pv])
 
   return (
     <TwitterContainer heading="tweet" refetch={refetch}>
-      {tweet ? <TweetCard tweet={tweet} /> : <CircularLoader />}
+      {tweet ? <TweetCard tweet={tweet} likeHandler={tweetLikeHandler} /> : <CircularLoader />}
 
       <TweetInput parentTweetId={tweetId} onComplete={onComplete} disabled={!Boolean(comments)} />
 
-      {comments ? (
-        comments.length ? (
-          comments.map((comment) => <TweetCard key={comment.id} tweet={comment} />)
-        ) : (
-          <EmptyCard text="no reply" />
-        )
-      ) : (
-        <CircularLoader />
-      )}
+      <TwitterFeed feed={comments} likeHandler={commentsLikeHandler} emptyText="no reply" />
+
     </TwitterContainer>
   )
 }

@@ -1,14 +1,13 @@
 import { useState, useEffect, useCallback } from "react"
+import { useLocation } from "react-router-dom"
 import { twitterApi } from "../store"
 import TwitterContainer from "../components/twitter/TwitterContainer"
-import ParentChildTweetCard from "../components/twitter/card/ParentChildTweetCard"
-import TweetCard from "../components/twitter/card/TweetCard"
 import TweetInput from "../components/twitter/TweetInput"
 import requestHandler from "../utils/requestHandler"
-import CircularLoader from "../components/loading/component/CircularLoader"
-import EmptyCard from "../components/twitter/card/EmptyCard"
+import TwitterFeed from "../components/twitter/TwitterFeed"
 
 const Feed = () => {
+  const { state } = useLocation()
   const [feed, setFeed] = useState(null)
   const [getFeed] = twitterApi.useLazyGetFeedQuery()
 
@@ -17,35 +16,30 @@ const Feed = () => {
     await requestHandler(getFeed().unwrap(), "fetching feed", "feed fetched").then(({ data }) => setFeed(data))
   }, [])
 
-  useEffect(() => {
-    refetch()
-  }, [])
+  const likeHandler = useCallback(async (tweetId, liked) =>
+    setFeed((pv) => pv.map(feedItem => {
+      const newFeedItem = { ...feedItem }
+      if (feedItem.tweet.id === tweetId) newFeedItem.isTweetLiked = liked
+      if (feedItem?.parentTweet?.id === tweetId) newFeedItem.isParentTweetLiked = liked
+      return newFeedItem
+    }))
+    , [])
 
-  const onComplete = ({ data }) => setFeed((pv) => [{ tweet: data }, ...pv])
+    const onComplete = ({ data }) => setFeed((pv) => [{ tweet: data }, ...pv])
+
+    useEffect(() => {
+      refetch()
+    }, [])
+
+    useEffect(() => {
+      if(state && feed) onComplete(state)
+    }, [state])
 
   return (
     <TwitterContainer heading="home" refetch={refetch}>
       <TweetInput onComplete={onComplete} disabled={!Boolean(feed)} />
 
-      {feed ? (
-        feed.length ? (
-          feed.map(({ tweet, isTweetLiked, parentTweet, isParentTweetLiked }) => {
-            if (parentTweet)
-              return (
-                <ParentChildTweetCard
-                  key={tweet.id}
-                  parentTweet={{ ...parentTweet, isLiked: isParentTweetLiked }}
-                  tweet={{ ...tweet, isLiked: isTweetLiked }}
-                />
-              )
-            return <TweetCard key={tweet.id} tweet={{ ...tweet, isLiked: isTweetLiked }} />
-          })
-        ) : (
-          <EmptyCard text="nothing to show ☹ No friends no problem follow Direwolf (me)" />
-        )
-      ) : (
-        <CircularLoader />
-      )}
+      <TwitterFeed feed={feed} likeHandler={likeHandler} emptyText="nothing to show ☹ No friends no problem follow Direwolf (me)" />
     </TwitterContainer>
   )
 }

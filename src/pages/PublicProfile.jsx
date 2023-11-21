@@ -4,18 +4,18 @@ import { Box, Stack, Typography } from "@mui/material"
 import { userApi, twitterApi } from "../store"
 import TwitterContainer from "../components/twitter/TwitterContainer"
 import ContainerDivider from "../components/twitter/container/ContainerDivider"
-import TweetCard from "../components/twitter/card/TweetCard"
 import ProfileEditButton from "../components/twitter/button/ProfileEditButton"
 import FollowButton from "../components/twitter/button/FollowButton"
 import UserAvatar from "../components/layout/UserAvatar"
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 import requestHandler from "../utils/requestHandler"
 import CircularLoader from "../components/loading/component/CircularLoader"
-import EmptyCard from "../components/twitter/card/EmptyCard"
+import TwitterFeed from "../components/twitter/TwitterFeed"
 
 const PublicProfile = () => {
   const { userId } = useParams()
   const [profile, setProfile] = useState(null)
+  const [tweets, setTweets] = useState(null)
   const {
     data: { data: currentUser },
   } = userApi.useFetchProfileQuery()
@@ -23,8 +23,20 @@ const PublicProfile = () => {
 
   const refetch = useCallback(async () => {
     setProfile(null)
-    await requestHandler(getPublicProfile({ userId }).unwrap(), "fetching profile", "profile fetched").then(({ data }) => setProfile(data))
+    await requestHandler(getPublicProfile({ userId }).unwrap(), "fetching profile", "profile fetched").then(({ data }) => {
+      setProfile(data.profile)
+      setTweets(data.tweets)
+    })
   }, [userId])
+
+  const likeHandler = useCallback(async (tweetId, liked) =>
+    setTweets((pv) => pv.map(feedItem => {
+      const newFeedItem = { ...feedItem }
+      if (feedItem.tweet.id === tweetId) newFeedItem.isTweetLiked = liked
+      if (feedItem?.parentTweet?.id === tweetId) newFeedItem.isParentTweetLiked = liked
+      return newFeedItem
+    }))
+    , [])
 
   useEffect(() => {
     refetch()
@@ -92,13 +104,8 @@ const PublicProfile = () => {
             </Stack>
           </Stack>
 
-          <Stack divider={<ContainerDivider />}>
-            {profile.tweets.length ? (
-              profile.tweets.map((tweet) => <TweetCard key={tweet.id} tweet={tweet} />)
-            ) : (
-              <EmptyCard text="no tweets found" />
-            )}
-          </Stack>
+          <TwitterFeed feed={tweets} likeHandler={likeHandler} emptyText="no tweets found" />
+
         </Stack>
       ) : (
         <CircularLoader />
