@@ -10,7 +10,7 @@ import { useInView } from "framer-motion"
 import socket from "../../../utils/socket"
 import roomKey from "../../../utils/roomKey"
 
-const TweetContent = ({ tweet }) => {
+const TweetContent = ({ tweet, likeHandler }) => {
   const contentRef = useRef(null)
   const isInView = useInView(contentRef)
   const [metadata, setMetadata] = useState({ likes: null, comments: null })
@@ -74,7 +74,7 @@ const TweetContent = ({ tweet }) => {
       <Stack flexDirection="row" alignItems="center" mt="6px">
         <CommentButton tweetId={tweet.id} comments={metadata.comments} />
 
-        <LikeButton tweetId={tweet.id} likes={metadata.likes} isLiked={tweet.isLiked} />
+        <LikeButton tweetId={tweet.id} likes={metadata.likes} isLiked={tweet.isLiked} likeHandler={likeHandler} />
       </Stack>
     </Stack>
   )

@@ -4,14 +4,14 @@ import UserAvatar from "../../../components/layout/UserAvatar"
 
 import TweetContent from "./TweetContent"
 
-const TweetCard = ({ tweet }) => {
+const TweetCard = ({ tweet, likeHandler }) => {
   return (
     <Stack flexDirection="row" p="16px 16px 4px 16px" gap={2}>
       <Link to={`/public-profile/${tweet.userId}`}>
         <UserAvatar user={tweet.user} />
       </Link>
 
-      <TweetContent tweet={tweet} />
+      <TweetContent tweet={tweet} likeHandler={likeHandler} />
     </Stack>
   )
 }

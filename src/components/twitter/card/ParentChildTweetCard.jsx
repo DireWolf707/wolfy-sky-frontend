@@ -4,7 +4,7 @@ import { timelineItemClasses } from "@mui/lab/TimelineItem"
 import TweetContent from "./TweetContent"
 import UserAvatar from "../../../components/layout/UserAvatar"
 
-const ParentChildTweetCard = ({ parentTweet, tweet }) => {
+const ParentChildTweetCard = ({ parentTweet, tweet, likeHandler }) => {
   return (
     <Timeline
       sx={{
@@ -21,7 +21,7 @@ const ParentChildTweetCard = ({ parentTweet, tweet }) => {
         </TimelineSeparator>
 
         <TimelineContent>
-          <TweetContent tweet={parentTweet} />
+          <TweetContent tweet={parentTweet} likeHandler={likeHandler} />
         </TimelineContent>
       </TimelineItem>
 
@@ -33,7 +33,7 @@ const ParentChildTweetCard = ({ parentTweet, tweet }) => {
         </TimelineSeparator>
 
         <TimelineContent>
-          <TweetContent tweet={tweet} />
+          <TweetContent tweet={tweet} likeHandler={likeHandler} />
         </TimelineContent>
       </TimelineItem>
     </Timeline>
